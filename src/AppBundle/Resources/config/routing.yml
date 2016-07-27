@@ -1,0 +1,3 @@
+home:
+    path:     /
+    defaults: { _controller: prooph.default_controller:indexAction }
