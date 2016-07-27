@@ -1,0 +1,37 @@
+version: "2"
+services:
+  nginx:
+    image: prooph/nginx:www
+    ports:
+        - 8080:80
+        - 443:443
+        - 10081:10081
+        - 10082:10082
+    links:
+      - php:php
+    volumes:
+      - .:/var/www:ro
+      - ./env/docker/nginx/config/sites-enabled:/etc/nginx/sites-enabled:ro
+
+  php:
+    image: prooph/php:7.0-fpm-xdebug
+    links:
+      - mariadb:mariadb
+      - mongodb:mongodb
+    volumes:
+      - .:/var/www:rw
+
+  mariadb:
+    image: mariadb
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=dev
+      - MYSQL_USER=dev
+      - MYSQL_PASSWORD=dev
+      - MYSQL_DATABASE=proophessor
+
+  mongodb:
+      image: mongo
+      ports:
+        - 27017:27017

@@ -1,0 +1,49 @@
+sudo: false
+
+language: php
+
+branches:
+  except:
+    - /^release-.*$/
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - vendor
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 5.6
+      env:
+        - EXECUTE_CS_CHECK=true
+    - php: 7
+      env:
+        - EXECUTE_TEST_COVERALLS=true
+
+before_install:
+  - if [[ $EXECUTE_TEST_COVERALLS != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
+  - composer self-update
+  - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then composer require --no-update satooshi/php-coveralls:dev-master ; fi
+
+install:
+  - travis_retry composer install --no-interaction --prefer-source
+  - composer info -i
+
+script:
+  - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then php ./vendor/bin/phpunit --coverage-text --coverage-clover ./build/logs/clover.xml ; fi
+  - if [[ $EXECUTE_TEST_COVERALLS != 'true' ]]; then ./vendor/bin/phpunit ; fi
+  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then ./vendor/bin/php-cs-fixer fix -v --diff --dry-run ; fi
+
+after_script:
+  - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then ./vendor/bin/coveralls ; fi
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml ; fi
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/61c75218816eebde4486
+    on_success: change  # options: [always|never|change] default: always
+    on_failure: always  # options: [always|never|change] default: always
+    on_start: never     # options: [always|never|change] default: always
