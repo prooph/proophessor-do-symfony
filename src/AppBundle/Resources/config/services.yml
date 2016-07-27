@@ -1,0 +1,4 @@
+services:
+    prooph.default_controller:
+        class: Prooph\AppBundle\Controller\DefaultController
+        arguments: ['@templating']
