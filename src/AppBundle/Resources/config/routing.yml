@@ -1,3 +1,47 @@
-home:
+'page::home':
     path:     /
+    defaults: { _controller: prooph.default_controller:indexAction }
+
+'page::user-list':
+    path:     /user-list
+    defaults: { _controller: prooph.user_list_controller:listAction }
+
+'page::user-registration-form':
+    path:     /user-registration
+    defaults: { _controller: prooph.user_registratrion_controller:registerAction }
+
+'page::user-todo-list':
+    path:     /user-todo-list/{user_id}
+    defaults: { _controller: prooph.user_todo_list_controller:listAction }
+
+'page::user-todo-form':
+    path:     /user-todo-list/{user_id}/new-todo
+    defaults: { _controller: prooph.user_todo_form_controller:formAction }
+
+'command::register-user':
+    path: '/api/commands/register-user'
+    defaults: { _controller: prooph.default_controller:indexAction }
+
+'command::post-todo':
+    path: '/api/commands/post-todo'
+    defaults: { _controller: prooph.default_controller:indexAction }
+
+'command::mark-todo-as-done':
+    path: '/api/commands/mark-todo-as-done'
+    defaults: { _controller: prooph.default_controller:indexAction }
+
+'command::reopen-todo':
+    path: '/api/commands/reopen-todo'
+    defaults: { _controller: prooph.default_controller:indexAction }
+
+'/api/commands/add-deadline-to-todo':
+    path: '/api/commands/add-deadline-to-todo'
+    defaults: { _controller: prooph.default_controller:indexAction }
+
+'command::add-reminder-to-todo':
+    path: '/api/commands/add-reminder-to-todo'
+    defaults: { _controller: prooph.default_controller:indexAction }
+
+'command::mark-todo-as-expired':
+    path: '/api/commands/mark-todo-as-expired'
     defaults: { _controller: prooph.default_controller:indexAction }

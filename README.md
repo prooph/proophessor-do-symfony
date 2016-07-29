@@ -20,6 +20,12 @@ Please refer to the [installation instructions](https://github.com/prooph/prooph
 
 If you have problems with cache files run `sudo chmod 777 var -R`
 
+If you run Symfony proophessor-do app in production mode, you have to compile the assets!
+
+```php
+$ docker-compose run --rm php php bin/console assetic:dump --env=prod
+```
+
 ## Learning by doing!
 
 When you play around with the application you will notice missing functionality. This has a simple reason. You explore

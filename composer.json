@@ -22,6 +22,16 @@
     "autoload-dev": {
         "psr-4": { "ProophTest\\": "test/" }
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:sandrokeil/service-bus-symfony-bundle.git"
+        },
+        {
+            "type": "git",
+            "url": "git@github.com:sandrokeil/event-store-symfony-bundle.git"
+        }
+    ],
     "require": {
         "php": "^7.0",
         "symfony/symfony": "3.1.*",
@@ -34,7 +44,12 @@
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
-        "symfony/assetic-bundle": "^2.8"
+        "symfony/assetic-bundle": "^2.8",
+        "prooph/service-bus-symfony-bundle": "dev-feature/dic-config",
+        "prooph/event-store-symfony-bundle": "dev-feature/dic-config",
+        "prooph/event-sourcing": "^4.0",
+        "prooph/event-store-doctrine-adapter": "^3.2",
+        "prooph/event-store-bus-bridge": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.3",
@@ -43,6 +58,8 @@
         "symfony/phpunit-bridge": "^3.0",
         "fabpot/php-cs-fixer": "^1.11"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
