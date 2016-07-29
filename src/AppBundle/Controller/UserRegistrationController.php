@@ -15,22 +15,25 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController
+/**
+ * Class UserRegistration
+ */
+final class UserRegistrationController
 {
     /**
      * @var EngineInterface
      */
     private $templateEngine;
 
-    public function __construct(EngineInterface $engine) {
-        $this->templateEngine = $engine;
+    public function __construct(EngineInterface $templateEngine)
+    {
+        $this->templateEngine = $templateEngine;
     }
 
-    public function indexAction(Request $request): Response
+    public function registerAction(Request $request): Response
     {
         return $this->templateEngine->renderResponse(
-            'AppBundle:Default:index.html.twig',
-            ['sidebar_right' => '']
+            'AppBundle:Default:user-registration-form.html.twig'
         );
     }
 }

@@ -1,0 +1,46 @@
+<form method="post" enctype="multipart/form-data" action="#" onsubmit="{onFormSubmit}">
+    <div class="{form-group: true, has-error: !todoIsValid}">
+        <input class="form-control" type="text" name="todo" placeholder="Describe the Todo with a one liner and press Enter">
+        <p if="{!todoIsValid}" class="help-block">Oops, that didn't make it. Typed to fast? The Todo should be at least 3 characters long. Please try again!</p>
+        <p if="{todoIsValid}" class="help-block">The Todo will be assigned to {{ user.name }}</p>
+    </div>
+    <input type="hidden" name="user_id" value="{{ user.id }}">
+</form>
+<script type="text/javascript">
+    function (context) {
+
+        var self = this,
+            _checkValidTodo = function () {
+                self.todoIsValid = _.isEmpty(validate.single(self.todo.value, {presence: true, length: {minimum: 3}}))
+            };
+
+        self.todoIsValid = true;
+
+        self.onFormSubmit = function (e) {
+            e.preventDefault();
+
+            _checkValidTodo();
+
+            if (self.todoIsValid) {
+
+                var todoId = UUID();
+
+                $.postJSON(
+                    '{{ path('command::post-todo') }}',
+                    {
+                        assignee_id : self.user_id.value,
+                        todo_id : todoId,
+                        text : self.todo.value
+                    }
+                ).then(
+                    function () {
+                        window.location.href =
+                            '{{ path('page::user-todo-list', {'user_id': '00000000-0000-0000-0000-000000000000'}) }}'
+                                .replace('00000000-0000-0000-0000-000000000000', self.user_id.value);
+                    },
+                    $.failNotify
+                );
+            }
+        }
+    }
+</script>
