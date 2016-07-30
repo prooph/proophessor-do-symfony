@@ -22,22 +22,13 @@
     "autoload-dev": {
         "psr-4": { "ProophTest\\": "test/" }
     },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git@github.com:sandrokeil/service-bus-symfony-bundle.git"
-        },
-        {
-            "type": "git",
-            "url": "git@github.com:sandrokeil/event-store-symfony-bundle.git"
-        }
-    ],
     "require": {
         "php": "^7.0",
         "symfony/symfony": "3.1.*",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-cache-bundle": "^1.2",
+        "doctrine/doctrine-migrations-bundle": "^1.0",
         "symfony/swiftmailer-bundle": "^2.3",
         "symfony/monolog-bundle": "^2.8",
         "symfony/polyfill-apcu": "^1.0",
@@ -45,8 +36,8 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "symfony/assetic-bundle": "^2.8",
-        "prooph/service-bus-symfony-bundle": "dev-feature/dic-config",
-        "prooph/event-store-symfony-bundle": "dev-feature/dic-config",
+        "prooph/service-bus-symfony-bundle": "dev-master",
+        "prooph/event-store-symfony-bundle": "dev-master",
         "prooph/event-sourcing": "^4.0",
         "prooph/event-store-doctrine-adapter": "^3.2",
         "prooph/event-store-bus-bridge": "^2.0"

@@ -6,33 +6,33 @@
     <services>
         <!--Todo-->
         <service id="prooph.todo_projection.todo_finder"
-                 class="Prooph\ProophessorDo\TodoBundle\Projection\Todo\TodoFinder">
+                 class="Prooph\ProophessorDo\Projection\Todo\TodoFinder">
             <argument type="service" id="doctrine.dbal.default_connection"/>
         </service>
 
         <service id="prooph.todo_projection.todo_projector"
-                 class="Prooph\ProophessorDo\TodoBundle\Projection\Todo\TodoProjector">
+                 class="Prooph\ProophessorDo\Projection\Todo\TodoProjector">
             <argument type="service" id="doctrine.dbal.default_connection"/>
         </service>
 
         <service id="prooph.todo_projection.todo_reminder_finder"
-                 class="Prooph\ProophessorDo\TodoBundle\Projection\Todo\TodoReminderFinder">
+                 class="Prooph\ProophessorDo\Projection\Todo\TodoReminderFinder">
             <argument type="service" id="doctrine.dbal.default_connection"/>
         </service>
 
         <service id="prooph.todo_projection.todo_reminder_projector"
-                 class="Prooph\ProophessorDo\TodoBundle\Projection\Todo\TodoReminderProjector">
+                 class="Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector">
             <argument type="service" id="doctrine.dbal.default_connection"/>
         </service>
 
         <!--User-->
         <service id="prooph.todo_projection.user_finder"
-                 class="Prooph\ProophessorDo\TodoBundle\Projection\User\UserFinder">
+                 class="Prooph\ProophessorDo\Projection\User\UserFinder">
             <argument type="service" id="doctrine.dbal.default_connection"/>
         </service>
 
         <service id="prooph.todo_projection.user_projector"
-                 class="Prooph\ProophessorDo\TodoBundle\Projection\User\UserProjector">
+                 class="Prooph\ProophessorDo\Projection\User\UserProjector">
             <argument type="service" id="doctrine.dbal.default_connection"/>
             <argument type="service" id="prooph.todo_projection.user_finder"/>
         </service>

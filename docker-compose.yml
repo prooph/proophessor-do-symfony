@@ -20,6 +20,7 @@ services:
       - mongodb:mongodb
     volumes:
       - .:/var/www:rw
+    user: "1000"
 
   mariadb:
     image: mariadb

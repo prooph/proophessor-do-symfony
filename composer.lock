@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6c20e7cf74ea7c19e0503c2e21931de8",
-    "content-hash": "103c65552e1e732e9a45f92dc0a2043b",
+    "hash": "527bb90485c159edd1b3c5b001efc0f0",
+    "content-hash": "1a802dae8fae2cb3792495fb604fcded",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -583,6 +583,64 @@
             "time": "2016-01-26 17:28:51"
         },
         {
+            "name": "doctrine/doctrine-migrations-bundle",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
+                "reference": "303a576e2124efb07ec215e34ea2480b841cf5e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/303a576e2124efb07ec215e34ea2480b841cf5e4",
+                "reference": "303a576e2124efb07ec215e34ea2480b841cf5e4",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "~1.0",
+                "doctrine/migrations": "~1.0",
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~2.3|~3.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Bundle\\MigrationsBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Doctrine Project",
+                    "homepage": "http://www.doctrine-project.org"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony DoctrineMigrationsBundle",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "dbal",
+                "migrations",
+                "schema"
+            ],
+            "time": "2015-11-04 13:45:30"
+        },
+        {
             "name": "doctrine/inflector",
             "version": "v1.1.0",
             "source": {
@@ -756,6 +814,79 @@
                 "parser"
             ],
             "time": "2014-09-09 13:34:57"
+        },
+        {
+            "name": "doctrine/migrations",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/migrations.git",
+                "reference": "0d0ff5da10c5d30846da32060bd9e357abf70a05"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/0d0ff5da10c5d30846da32060bd9e357abf70a05",
+                "reference": "0d0ff5da10c5d30846da32060bd9e357abf70a05",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "~2.2",
+                "ocramius/proxy-manager": "^1.0|^2.0",
+                "php": "^5.5|^7.0",
+                "symfony/console": "~2.3|~3.0",
+                "symfony/yaml": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "dev-master",
+                "doctrine/orm": "2.*",
+                "jdorn/sql-formatter": "~1.1",
+                "johnkary/phpunit-speedtrap": "~1.0@dev",
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "~4.7",
+                "satooshi/php-coveralls": "0.6.*"
+            },
+            "suggest": {
+                "jdorn/sql-formatter": "Allows to generate formatted SQL with the diff command."
+            },
+            "bin": [
+                "bin/doctrine-migrations"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "v1.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\DBAL\\Migrations\\": "lib/Doctrine/DBAL/Migrations"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Michael Simonson",
+                    "email": "contact@mikesimonson.com"
+                }
+            ],
+            "description": "Database Schema migrations using Doctrine DBAL",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "database",
+                "migrations"
+            ],
+            "time": "2016-03-14 12:29:11"
         },
         {
             "name": "doctrine/orm",
@@ -1088,6 +1219,117 @@
                 "psr-3"
             ],
             "time": "2016-07-02 14:02:10"
+        },
+        {
+            "name": "ocramius/package-versions",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ocramius/PackageVersions.git",
+                "reference": "4b2bfc8128db95b533303942b0d5b332bffa07c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/4b2bfc8128db95b533303942b0d5b332bffa07c6",
+                "reference": "4b2bfc8128db95b533303942b0d5b332bffa07c6",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "php": "~7.0"
+            },
+            "require-dev": {
+                "composer/composer": "^1.2.0",
+                "phpunit/phpunit": "^5.4.7"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "PackageVersions\\Installer",
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PackageVersions\\": "src/PackageVersions"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com"
+                }
+            ],
+            "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
+            "time": "2016-07-25 07:13:56"
+        },
+        {
+            "name": "ocramius/proxy-manager",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ocramius/ProxyManager.git",
+                "reference": "51c7fdd99dba53808aaab21b34f7a55b302c160c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ocramius/ProxyManager/zipball/51c7fdd99dba53808aaab21b34f7a55b302c160c",
+                "reference": "51c7fdd99dba53808aaab21b34f7a55b302c160c",
+                "shasum": ""
+            },
+            "require": {
+                "ocramius/package-versions": "^1.0",
+                "php": "7.0.0 - 7.0.5 || ^7.0.7",
+                "zendframework/zend-code": "3.0.0 - 3.0.2 || ^3.0.4"
+            },
+            "require-dev": {
+                "couscous/couscous": "^1.4.0",
+                "ext-phar": "*",
+                "phpunit/phpunit": "^5.3.4",
+                "squizlabs/php_codesniffer": "^2.6.0"
+            },
+            "suggest": {
+                "ocramius/generated-hydrator": "To have very fast object to array to object conversion for ghost objects",
+                "zendframework/zend-json": "To have the JsonRpc adapter (Remote Object feature)",
+                "zendframework/zend-soap": "To have the Soap adapter (Remote Object feature)",
+                "zendframework/zend-xmlrpc": "To have the XmlRpc adapter (Remote Object feature)"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "ProxyManager\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "http://ocramius.github.io/"
+                }
+            ],
+            "description": "A library providing utilities to generate, instantiate and generally operate with Object Proxies",
+            "homepage": "https://github.com/Ocramius/ProxyManager",
+            "keywords": [
+                "aop",
+                "lazy loading",
+                "proxy",
+                "proxy pattern",
+                "service proxies"
+            ],
+            "time": "2016-07-01 12:11:54"
         },
         {
             "name": "paragonie/random_compat",
@@ -1448,21 +1690,17 @@
         },
         {
             "name": "prooph/event-store-symfony-bundle",
-            "version": "dev-feature/dic-config",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:sandrokeil/event-store-symfony-bundle.git",
-                "reference": "93b3a61d354ac1923446ab2421fc542b8799c317"
+                "url": "https://github.com/prooph/event-store-symfony-bundle.git",
+                "reference": "308ab229a1778063d0652d8550fc58456259ed58"
             },
-            "archive": {
-                "exclude": [
-                    ".coveralls.yml",
-                    ".travis.yml",
-                    "benchmark",
-                    "build",
-                    "phpunit.xml*",
-                    "test"
-                ]
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/prooph/event-store-symfony-bundle/zipball/308ab229a1778063d0652d8550fc58456259ed58",
+                "reference": "308ab229a1778063d0652d8550fc58456259ed58",
+                "shasum": ""
             },
             "require": {
                 "php": "^7.0",
@@ -1493,42 +1731,11 @@
                     "Prooph\\Bundle\\EventStore\\": "src"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "ProophTest\\Bundle\\EventStore\\": "test"
-                }
-            },
-            "scripts": {
-                "check": [
-                    "@cs",
-                    "@test"
-                ],
-                "cs": [
-                    "php-cs-fixer fix -v --diff --dry-run"
-                ],
-                "cs-fix": [
-                    "php-cs-fixer fix -v --diff"
-                ],
-                "test": [
-                    "phpunit --no-coverage"
-                ],
-                "test-coverage": [
-                    "phpunit"
-                ],
-                "docs": [
-                    "bookdown doc/bookdown.json"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
             "authors": [
-                {
-                    "name": "Alexander Miertsch",
-                    "email": "contact@prooph.de",
-                    "homepage": "http://www.prooph.de",
-                    "role": "maintainer"
-                },
                 {
                     "name": "Sascha-Oliver Prolic",
                     "email": "saschaprolic@googlemail.com"
@@ -1537,24 +1744,25 @@
                     "name": "Sandro Keil",
                     "homepage": "https://sandro-keil.de",
                     "role": "maintainer"
+                },
+                {
+                    "name": "Alexander Miertsch",
+                    "email": "contact@prooph.de",
+                    "homepage": "http://www.prooph.de",
+                    "role": "maintainer"
                 }
             ],
             "homepage": "https://github.com/prooph/event-store-symfony-bundle",
             "keywords": [
-                "Bundle",
-                "DDD",
                 "EventSourcing",
                 "EventStore",
-                "PHP",
-                "Symfony",
-                "prooph"
+                "bundle",
+                "ddd",
+                "php",
+                "prooph",
+                "symfony"
             ],
-            "support": {
-                "issues": "https://github.com/prooph/event-store-symfony-bundle/issues",
-                "source": "https://github.com/prooph/event-store-symfony-bundle",
-                "docs": "http://getprooph.org/"
-            },
-            "time": "2016-07-29 15:39:45"
+            "time": "2016-07-29 16:12:37"
         },
         {
             "name": "prooph/service-bus",
@@ -1627,21 +1835,17 @@
         },
         {
             "name": "prooph/service-bus-symfony-bundle",
-            "version": "dev-feature/dic-config",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:sandrokeil/service-bus-symfony-bundle.git",
-                "reference": "8c3b5f61d5f84d89635f3f90e24cc71fb9e8f78e"
+                "url": "https://github.com/prooph/service-bus-symfony-bundle.git",
+                "reference": "f99e5ed680d87fd8f5cbcffda50c3782f9fb09da"
             },
-            "archive": {
-                "exclude": [
-                    ".coveralls.yml",
-                    ".travis.yml",
-                    "benchmark",
-                    "build",
-                    "phpunit.xml*",
-                    "test"
-                ]
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/prooph/service-bus-symfony-bundle/zipball/f99e5ed680d87fd8f5cbcffda50c3782f9fb09da",
+                "reference": "f99e5ed680d87fd8f5cbcffda50c3782f9fb09da",
+                "shasum": ""
             },
             "require": {
                 "php": "^7.0",
@@ -1669,42 +1873,11 @@
                     "Prooph\\Bundle\\ServiceBus\\": "src"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "ProophTest\\Bundle\\ServiceBus\\": "test"
-                }
-            },
-            "scripts": {
-                "check": [
-                    "@cs",
-                    "@test"
-                ],
-                "cs": [
-                    "php-cs-fixer fix -v --diff --dry-run"
-                ],
-                "cs-fix": [
-                    "php-cs-fixer fix -v --diff"
-                ],
-                "test": [
-                    "phpunit --no-coverage"
-                ],
-                "test-coverage": [
-                    "phpunit"
-                ],
-                "docs": [
-                    "bookdown doc/bookdown.json"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
             "authors": [
-                {
-                    "name": "Alexander Miertsch",
-                    "email": "contact@prooph.de",
-                    "homepage": "http://www.prooph.de",
-                    "role": "maintainer"
-                },
                 {
                     "name": "Sascha-Oliver Prolic",
                     "email": "saschaprolic@googlemail.com"
@@ -1713,28 +1886,29 @@
                     "name": "Sandro Keil",
                     "homepage": "https://sandro-keil.de",
                     "role": "maintainer"
+                },
+                {
+                    "name": "Alexander Miertsch",
+                    "email": "contact@prooph.de",
+                    "homepage": "http://www.prooph.de",
+                    "role": "maintainer"
                 }
             ],
             "homepage": "https://github.com/prooph/service-bus-symfony-bundle",
             "keywords": [
-                "Bundle",
-                "CQRS",
-                "DDD",
-                "Event Bus",
-                "Message Bus",
-                "Messaging",
-                "PHP",
                 "Query Bus",
                 "Service Bus",
-                "Symfony",
-                "prooph"
+                "bundle",
+                "cqrs",
+                "ddd",
+                "event bus",
+                "message bus",
+                "messaging",
+                "php",
+                "prooph",
+                "symfony"
             ],
-            "support": {
-                "issues": "https://github.com/prooph/service-bus-symfony-bundle/issues",
-                "source": "https://github.com/prooph/service-bus-symfony-bundle",
-                "docs": "http://getprooph.org/"
-            },
-            "time": "2016-07-28 15:11:59"
+            "time": "2016-07-30 19:00:26"
         },
         {
             "name": "psr/cache",
@@ -2668,16 +2842,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.1.2",
+            "version": "v3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "2e98c829524e505a9561ac9e54fa715e8b79905e"
+                "reference": "4478f047409028dc6e3ab320590f1247fec7a850"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/2e98c829524e505a9561ac9e54fa715e8b79905e",
-                "reference": "2e98c829524e505a9561ac9e54fa715e8b79905e",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/4478f047409028dc6e3ab320590f1247fec7a850",
+                "reference": "4478f047409028dc6e3ab320590f1247fec7a850",
                 "shasum": ""
             },
             "require": {
@@ -2693,7 +2867,8 @@
                 "twig/twig": "~1.23|~2.0"
             },
             "conflict": {
-                "phpdocumentor/reflection-docblock": "<3.0"
+                "phpdocumentor/reflection-docblock": "<3.0",
+                "phpdocumentor/type-resolver": "<0.2.0"
             },
             "replace": {
                 "symfony/asset": "self.version",
@@ -2799,7 +2974,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-06-30 17:16:26"
+            "time": "2016-07-30 09:31:00"
         },
         {
             "name": "twig/twig",
@@ -2861,6 +3036,113 @@
                 "templating"
             ],
             "time": "2016-05-30 09:11:59"
+        },
+        {
+            "name": "zendframework/zend-code",
+            "version": "3.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-code.git",
+                "reference": "c5272131d3acb0f470a2462ed088fca3b6ba61c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-code/zipball/c5272131d3acb0f470a2462ed088fca3b6ba61c2",
+                "reference": "c5272131d3acb0f470a2462ed088fca3b6ba61c2",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || 7.0.0 - 7.0.4 || ^7.0.6",
+                "zendframework/zend-eventmanager": "^2.6 || ^3.0"
+            },
+            "require-dev": {
+                "doctrine/annotations": "~1.0",
+                "ext-phar": "*",
+                "phpunit/phpunit": "^4.8.21",
+                "squizlabs/php_codesniffer": "^2.5",
+                "zendframework/zend-stdlib": "^2.7 || ^3.0"
+            },
+            "suggest": {
+                "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
+                "zendframework/zend-stdlib": "Zend\\Stdlib component"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev",
+                    "dev-develop": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Code\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "provides facilities to generate arbitrary code using an object oriented interface",
+            "homepage": "https://github.com/zendframework/zend-code",
+            "keywords": [
+                "code",
+                "zf2"
+            ],
+            "time": "2016-06-30 22:35:27"
+        },
+        {
+            "name": "zendframework/zend-eventmanager",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-eventmanager.git",
+                "reference": "5c80bdee0e952be112dcec0968bad770082c3a6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-eventmanager/zipball/5c80bdee0e952be112dcec0968bad770082c3a6e",
+                "reference": "5c80bdee0e952be112dcec0968bad770082c3a6e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0"
+            },
+            "require-dev": {
+                "athletic/athletic": "^0.1",
+                "container-interop/container-interop": "^1.1.0",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "^2.0",
+                "zendframework/zend-stdlib": "^2.7.3 || ^3.0"
+            },
+            "suggest": {
+                "container-interop/container-interop": "^1.1.0, to use the lazy listeners feature",
+                "zendframework/zend-stdlib": "^2.7.3 || ^3.0, to use the FilterChain feature"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev",
+                    "dev-develop": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\EventManager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Trigger and listen to events within a PHP application",
+            "homepage": "https://github.com/zendframework/zend-eventmanager",
+            "keywords": [
+                "event",
+                "eventmanager",
+                "events",
+                "zf2"
+            ],
+            "time": "2016-02-18 20:53:00"
         }
     ],
     "packages-dev": [
@@ -4167,7 +4449,7 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.1.2",
+            "version": "v3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",

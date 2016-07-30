@@ -145,3 +145,9 @@ prooph_event_store:
             repository_class: 'Prooph\ProophessorDo\Infrastructure\Repository\EventStoreUserCollection'
             aggregate_type: 'Prooph\ProophessorDo\Model\User\User'
             aggregate_translator: 'Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator'
+
+doctrine_migrations:
+  dir_name: "%kernel.root_dir%/DoctrineMigrations"
+  namespace: Prooph\ProophessorDo\Migrations
+  table_name: migration_versions
+  name: ProophessorDo Migrations
