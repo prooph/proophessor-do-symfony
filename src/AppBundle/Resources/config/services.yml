@@ -19,6 +19,13 @@ services:
         class: Prooph\AppBundle\Controller\UserTodoFormController
         arguments: ['@templating', '@prooph.todo_projection.user_finder']
 
+    prooph.api_command_controller:
+        class: Prooph\AppBundle\Controller\ApiCommandController
+        arguments: ['@prooph_service_bus.command_bus.main_bus', '@prooph.message_factory']
+
+    prooph.message_factory:
+        class: Prooph\Common\Messaging\FQCNMessageFactory
+
     prooph.twig.extension.riot_tag:
         class:        Prooph\AppBundle\Twig\RiotTag
         tags:
