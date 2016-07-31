@@ -11,7 +11,7 @@
     defaults: { _controller: prooph.user_registratrion_controller:registerAction }
 
 'page::user-todo-list':
-    path:     /user-todo-list/{user_id}
+    path:     /user-todo-list/{userid}
     defaults: { _controller: prooph.user_todo_list_controller:listAction }
 
 'page::user-todo-form':

@@ -67,6 +67,33 @@
             "time": "2016-07-28 19:35:30"
         },
         {
+            "name": "container-interop/container-interop",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/container-interop/container-interop.git",
+                "reference": "fc08354828f8fd3245f77a66b9e23a6bca48297e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/container-interop/container-interop/zipball/fc08354828f8fd3245f77a66b9e23a6bca48297e",
+                "reference": "fc08354828f8fd3245f77a66b9e23a6bca48297e",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Interop\\Container\\": "src/Interop/Container/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
+            "time": "2014-12-30 15:22:37"
+        },
+        {
             "name": "doctrine/annotations",
             "version": "v1.2.7",
             "source": {
@@ -1839,15 +1866,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/prooph/service-bus-symfony-bundle.git",
-                "reference": "f99e5ed680d87fd8f5cbcffda50c3782f9fb09da"
+                "reference": "e16f24fbe033666379050bcfb0b68cb63d824570"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prooph/service-bus-symfony-bundle/zipball/f99e5ed680d87fd8f5cbcffda50c3782f9fb09da",
-                "reference": "f99e5ed680d87fd8f5cbcffda50c3782f9fb09da",
+                "url": "https://api.github.com/repos/prooph/service-bus-symfony-bundle/zipball/e16f24fbe033666379050bcfb0b68cb63d824570",
+                "reference": "e16f24fbe033666379050bcfb0b68cb63d824570",
                 "shasum": ""
             },
             "require": {
+                "container-interop/container-interop": "^1.1",
                 "php": "^7.0",
                 "prooph/service-bus": "^5.1",
                 "symfony/config": "~2.8 || ~3.0",
@@ -1908,7 +1936,7 @@
                 "prooph",
                 "symfony"
             ],
-            "time": "2016-07-30 19:00:26"
+            "time": "2016-07-31 20:16:51"
         },
         {
             "name": "psr/cache",

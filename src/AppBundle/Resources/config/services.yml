@@ -21,10 +21,11 @@ services:
 
     prooph.api_command_controller:
         class: Prooph\AppBundle\Controller\ApiCommandController
-        arguments: ['@prooph_service_bus.command_bus.main_bus', '@prooph.message_factory']
+        arguments: ['@prooph_service_bus.command_bus.todo_bus', '@Prooph\Common\Messaging\MessageFactory']
 
-    prooph.message_factory:
-        class: Prooph\Common\Messaging\FQCNMessageFactory
+    prooph.register_user_handler:
+        class: Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler
+        arguments: ['@prooph_event_store.store.user_collection_repository']
 
     prooph.twig.extension.riot_tag:
         class:        Prooph\AppBundle\Twig\RiotTag

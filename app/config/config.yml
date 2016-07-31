@@ -73,12 +73,14 @@ assetic:
 
 prooph_service_bus:
   command_buses:
-    main:
+    todo:
+      plugins:
+        - 'Prooph\EventStoreBusBridge\TransactionManager'
       message_factory: 'Prooph\Common\Messaging\MessageFactory'
       router:
         type: 'Prooph\ServiceBus\Plugin\Router\CommandRouter'
         routes:
-          'Prooph\ProophessorDo\Model\User\Command\RegisterUser': 'Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler'
+          'Prooph\ProophessorDo\Model\User\Command\RegisterUser': 'prooph.register_user_handler'
           'Prooph\ProophessorDo\Model\Todo\Command\PostTodo': 'Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler'
           'Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone': 'Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler'
           'Prooph\ProophessorDo\Model\Todo\Command\ReopenTodo': 'Prooph\ProophessorDo\Model\Todo\Handler\ReopenTodoHandler'
