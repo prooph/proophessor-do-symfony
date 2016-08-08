@@ -2,3 +2,42 @@ services:
     prooph.default_controller:
         class: Prooph\AppBundle\Controller\DefaultController
         arguments: ['@templating']
+
+    prooph.user_list_controller:
+        class: Prooph\AppBundle\Controller\UserListController
+        arguments: ['@templating', '@prooph.todo_projection.user_finder']
+
+    prooph.user_registratrion_controller:
+        class: Prooph\AppBundle\Controller\UserRegistrationController
+        arguments: ['@templating']
+
+    prooph.user_todo_list_controller:
+        class: Prooph\AppBundle\Controller\UserTodoListController
+        arguments: ['@templating', '@prooph.todo_projection.user_finder', '@prooph.todo_projection.todo_finder']
+
+    prooph.user_todo_form_controller:
+        class: Prooph\AppBundle\Controller\UserTodoFormController
+        arguments: ['@templating', '@prooph.todo_projection.user_finder']
+
+    prooph.twig.extension.riot_tag:
+        class:        Prooph\AppBundle\Twig\RiotTag
+        tags:
+             - { name: 'twig.extension' }
+
+    prooph.event_store.doctrine_adapter.main_store:
+        class: Prooph\EventStore\Adapter\Doctrine\DoctrineEventStoreAdapter
+        arguments: ['@database_connection', '@prooph_event_store.message_factory', '@prooph_event_store.message_converter', '@prooph_event_store.payload_serializer', '%prooph_event_store.stream_table_map%']
+
+    'Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator':
+        class: Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator
+
+    'Prooph\EventStoreBusBridge\TransactionManager':
+        class: Prooph\EventStoreBusBridge\TransactionManager
+        tags:
+          - { name: 'prooph_event_store.main.plugin' }
+
+    'Prooph\EventStoreBusBridge\EventPublisher':
+        class: Prooph\EventStoreBusBridge\EventPublisher
+        arguments: ['@prooph_service_bus.event_bus.main_bus']
+        tags:
+          - { name: 'prooph_event_store.main.plugin' }

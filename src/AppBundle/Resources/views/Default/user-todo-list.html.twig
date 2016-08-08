@@ -1,0 +1,35 @@
+{% extends "AppBundle:Default:base.html.twig" %}
+{% block content %}
+{% if users is empty %}
+    <h1>User cannot be found!</h1>
+    <p class="alert alert-info">
+        If you're coming from the registration process you can try to refresh the page. Maybe the operation took a bit longer
+        than normal. If your data still isn't available please contact the support.
+    </p>
+{% else %}
+    <h1>Todos assigned to {{ user.name }}</h1>
+    <div class="row">
+        <user-todo-list></user-todo-list>
+    </div>
+    <script type="text/javascript">
+
+        {{ riotTag('AppBundle:Default:riot-user-todo-list.html.twig') }}
+        {{ riotTag('AppBundle:Default:riot-user-todo.html.twig') }}
+
+        var UserTodoList = ProophRiot.App.create({
+            userId : '{{ user.id }}',
+            TodoStore : {
+                getAll : function () {
+                    return JSON.parse('{{ todos|json_encode|raw }}');
+                }
+            }
+        });
+
+        $(function () {
+            UserTodoList.bootstrap("user-todo-list").ready();
+        });
+    </script>
+
+{% endif %}
+
+{% endblock %}

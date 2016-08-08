@@ -21,7 +21,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path('home') }}">proophessor-do-symfony</a>
+            <a class="navbar-brand" href="{{ path('page::home') }}">proophessor-do-symfony</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -35,10 +35,10 @@
         <div id="sidebar-left" data-spy="affix" data-offset-top="60">
             <ul class="sidebar-nav">
                 <li>
-                    <a href="{{ path('home') }}">Welcome Screen</a>
+                    <a href="{{ path('page::home') }}">Welcome Screen</a>
                 </li>
                 <li>
-                    <a href="{{ path('home') }}">Manage Users</a>
+                    <a href="{{ path('page::user-list') }}">Manage Users</a>
                 </li>
                 <li>
                     <a href="#/create">Manage Todos</a>
@@ -47,14 +47,14 @@
         </div>
     </div>
     <div class="col-sm-7 col-md-8">
-        {% block body %}{% endblock %}
+        {% block content %}{% endblock %}
         <hr>
         <footer>
             <p>&copy; 2014 - {{ "now"|date("Y") }} by prooph software GmbH. All rights reserved.</p>
         </footer>
     </div>
     <div class="col-sm-2 col-md-2">
-        {% if sidebar_right %}{{ sidebar_right|raw }}{% endif %}
+        {% if sidebar_right is defined %}{{ sidebar_right|raw }}{% endif %}
     </div>
 </div>
 

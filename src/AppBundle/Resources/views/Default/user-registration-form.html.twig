@@ -1,0 +1,23 @@
+{% extends "AppBundle:Default:base.html.twig" %}
+{% block content %}
+<h1>Register a new User</h1>
+<div class="row">
+    <div class="col-md-12">
+        <user-form></user-form>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(function() {
+            {{ riotTag('AppBundle:Default:riot-user-form.html.twig') }}
+
+            var UserForm = ProophRiot.App.create();
+
+            $( function() {
+                UserForm.bootstrap( "user-form" ).ready();
+            } );
+        });
+    </script>
+
+{% endblock %}
