@@ -1,6 +1,6 @@
 {% extends "AppBundle:Default:base.html.twig" %}
 {% block content %}
-{% if users is empty %}
+{% if user is empty %}
     <h1>User cannot be found!</h1>
     <p class="alert alert-info">
         If you're coming from the registration process you can try to refresh the page. Maybe the operation took a bit longer
@@ -11,8 +11,12 @@
     <div class="row">
         <user-todo-list></user-todo-list>
     </div>
-    <script type="text/javascript">
+{% endif %}
 
+{% endblock %}
+{% block javascripts %}
+    {% if user is not empty %}
+    <script>
         {{ riotTag('AppBundle:Default:riot-user-todo-list.html.twig') }}
         {{ riotTag('AppBundle:Default:riot-user-todo.html.twig') }}
 
@@ -29,7 +33,6 @@
             UserTodoList.bootstrap("user-todo-list").ready();
         });
     </script>
-
-{% endif %}
-
+    {% endif %}
 {% endblock %}
+

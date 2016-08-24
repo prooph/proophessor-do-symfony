@@ -2,9 +2,9 @@
     <div class="{form-group: true, has-error: !todoIsValid}">
         <input class="form-control" type="text" name="todo" placeholder="Describe the Todo with a one liner and press Enter">
         <p if="{!todoIsValid}" class="help-block">Oops, that didn't make it. Typed to fast? The Todo should be at least 3 characters long. Please try again!</p>
-        <p if="{todoIsValid}" class="help-block">The Todo will be assigned to {{ user.name }}</p>
+        <p if="{todoIsValid}" class="help-block">The Todo will be assigned to { userName }</p>
     </div>
-    <input type="hidden" name="user_id" value="{{ user.id }}">
+    <input type="hidden" name="user_id" value="{ userId }">
 </form>
 <script type="text/javascript">
     function (context) {
@@ -15,6 +15,8 @@
             };
 
         self.todoIsValid = true;
+        self.userId = context.app.userId;
+        self.userName = context.app.userName;
 
         self.onFormSubmit = function (e) {
             e.preventDefault();
@@ -35,7 +37,7 @@
                 ).then(
                     function () {
                         window.location.href =
-                            '{{ path('page::user-todo-list', {'user_id': '00000000-0000-0000-0000-000000000000'}) }}'
+                            '{{ path('page::user-todo-list', {'userid': '00000000-0000-0000-0000-000000000000'}) }}'
                                 .replace('00000000-0000-0000-0000-000000000000', self.user_id.value);
                     },
                     $.failNotify

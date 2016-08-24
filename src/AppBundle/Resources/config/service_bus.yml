@@ -1,0 +1,60 @@
+prooph_service_bus:
+  command_buses:
+    todo_command_bus:
+      plugins:
+        - 'prooph_event_store_bus_bridge.transaction_manager'
+      router:
+        type: 'prooph_service_bus.command_bus_router'
+        routes:
+          'Prooph\ProophessorDo\Model\User\Command\RegisterUser': 'proophdo.register_user_handler'
+          'Prooph\ProophessorDo\Model\Todo\Command\PostTodo': 'proophdo.post_todo_handler'
+          'Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone': 'proophdo.mark_todo_as_done_handler'
+          'Prooph\ProophessorDo\Model\Todo\Command\ReopenTodo': 'proophdo.reopen_todo_handler'
+          'Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo': 'proophdo.add_deadline_to_todo_handler'
+          'Prooph\ProophessorDo\Model\Todo\Command\AddReminderToTodo': 'proophdo.add_reminder_to_todo_handler'
+          'Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsExpired': 'proophdo.mark_todo_expired_handler'
+          'Prooph\ProophessorDo\Model\Todo\Command\RemindTodoAssignee': 'proophdo.remind_todo_assignee_handler'
+
+  event_buses:
+    todo_event_bus:
+      plugins:
+        - 'prooph_service_bus.on_event_invoke_strategy'
+      router:
+        type: 'prooph_service_bus.event_bus_router'
+        routes:
+          'Prooph\ProophessorDo\Model\User\Event\UserWasRegistered':
+            - 'proophdo.todo_projection.user_projector'
+
+          'Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted':
+            - 'proophdo.todo_projection.todo_projector'
+            - 'proophdo.todo_projection.user_projector'
+
+          'Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone':
+            - 'proophdo.todo_projection.todo_projector'
+            - 'proophdo.todo_projection.user_projector'
+
+          'Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened':
+            - 'proophdo.todo_projection.todo_projector'
+            - 'proophdo.todo_projection.user_projector'
+
+          'Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo':
+            - 'proophdo.todo_projection.todo_projector'
+
+          'Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo':
+            - 'proophdo.todo_projection.todo_projector'
+            - 'proophdo.todo_projection.todo_reminder_projector'
+
+          'Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded':
+            - 'proophdo.todo_projection.todo_projector'
+            - 'proophdo.todo_projection.todo_reminder_projector'
+            - 'Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailSubscriber'
+
+          'Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired':
+            - 'proophdo.todo_projection.todo_projector'
+            - 'proophdo.todo_projection.user_projector'
+            - 'Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber'
+
+          'Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired':
+            - 'proophdo.todo_projection.todo_projector'
+            - 'proophdo.todo_projection.user_projector'
+

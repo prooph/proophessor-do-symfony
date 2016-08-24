@@ -39,7 +39,7 @@ final class UserTodoFormController
 
     public function formAction(Request $request): Response
     {
-        $userId = $request->get('user_id');
+        $userId = $request->get('userid');
 
         $invalidUser = true;
         $user = null;

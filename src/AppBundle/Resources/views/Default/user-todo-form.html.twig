@@ -9,16 +9,22 @@
 {% else %}
     <h1>Add a new Todo</h1>
     <user-todo-form></user-todo-form>
-    <script type="text/javascript">
+{% endif %}
 
+{% endblock %}
+{% block javascripts %}
+    {% if not invalidUser %}
+    <script>
         {{ riotTag('AppBundle:Default:riot-user-todo-form.html.twig') }}
 
-        var UserTodoForm = ProophRiot.App.create();
+        var UserTodoForm = ProophRiot.App.create({
+            userId : '{{ user.id }}',
+            userName : '{{ user.name }}',
+        });
 
         $(function () {
             UserTodoForm.bootstrap("user-todo-form").ready();
         });
     </script>
-{% endif %}
-
+    {% endif %}
 {% endblock %}

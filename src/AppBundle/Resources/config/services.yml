@@ -1,43 +1,61 @@
 services:
-    prooph.default_controller:
+    proophdo.default_controller:
         class: Prooph\AppBundle\Controller\DefaultController
         arguments: ['@templating']
 
-    prooph.user_list_controller:
+    proophdo.user_list_controller:
         class: Prooph\AppBundle\Controller\UserListController
-        arguments: ['@templating', '@prooph.todo_projection.user_finder']
+        arguments: ['@templating', '@proophdo.todo_projection.user_finder']
 
-    prooph.user_registratrion_controller:
+    proophdo.user_registratrion_controller:
         class: Prooph\AppBundle\Controller\UserRegistrationController
         arguments: ['@templating']
 
-    prooph.user_todo_list_controller:
+    proophdo.user_todo_list_controller:
         class: Prooph\AppBundle\Controller\UserTodoListController
-        arguments: ['@templating', '@prooph.todo_projection.user_finder', '@prooph.todo_projection.todo_finder']
+        arguments: ['@templating', '@proophdo.todo_projection.user_finder', '@proophdo.todo_projection.todo_finder']
 
-    prooph.user_todo_form_controller:
+    proophdo.user_todo_form_controller:
         class: Prooph\AppBundle\Controller\UserTodoFormController
-        arguments: ['@templating', '@prooph.todo_projection.user_finder']
+        arguments: ['@templating', '@proophdo.todo_projection.user_finder']
 
-    prooph.twig.extension.riot_tag:
+    proophdo.api_command_controller:
+        class: Prooph\AppBundle\Controller\ApiCommandController
+        arguments: ['@prooph_service_bus.todo_command_bus', '@prooph_service_bus.message_factory']
+
+    proophdo.register_user_handler:
+        class: Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler
+        arguments: ['@user_collection']
+
+    proophdo.post_todo_handler:
+        class: Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler
+        arguments: ['@user_collection', '@todo_list']
+
+    proophdo.mark_todo_as_done_handler:
+        class: Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler
+        arguments: ['@todo_list']
+
+    proophdo.reopen_todo_handler:
+        class: Prooph\ProophessorDo\Model\Todo\Handler\ReopenTodoHandler
+        arguments: ['@todo_list']
+
+    proophdo.add_deadline_to_todo_handler:
+        class: Prooph\ProophessorDo\Model\Todo\Handler\AddDeadlineToTodoHandler
+        arguments: ['@todo_list']
+
+    proophdo.add_reminder_to_todo_handler:
+        class: Prooph\ProophessorDo\Model\Todo\Handler\AddReminderToTodoHandler
+        arguments: ['@todo_list']
+
+    proophdo.mark_todo_expired_handler:
+        class: Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsExpiredHandler
+        arguments: ['@todo_list']
+
+    proophdo.remind_todo_assignee_handler:
+        class: Prooph\ProophessorDo\Model\Todo\Handler\RemindTodoAssigneeHandler
+        arguments: ['@todo_list']
+
+    proophdo.twig.extension.riot_tag:
         class:        Prooph\AppBundle\Twig\RiotTag
         tags:
              - { name: 'twig.extension' }
-
-    prooph.event_store.doctrine_adapter.main_store:
-        class: Prooph\EventStore\Adapter\Doctrine\DoctrineEventStoreAdapter
-        arguments: ['@database_connection', '@prooph_event_store.message_factory', '@prooph_event_store.message_converter', '@prooph_event_store.payload_serializer', '%prooph_event_store.stream_table_map%']
-
-    'Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator':
-        class: Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator
-
-    'Prooph\EventStoreBusBridge\TransactionManager':
-        class: Prooph\EventStoreBusBridge\TransactionManager
-        tags:
-          - { name: 'prooph_event_store.main.plugin' }
-
-    'Prooph\EventStoreBusBridge\EventPublisher':
-        class: Prooph\EventStoreBusBridge\EventPublisher
-        arguments: ['@prooph_service_bus.event_bus.main_bus']
-        tags:
-          - { name: 'prooph_event_store.main.plugin' }

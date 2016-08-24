@@ -10,7 +10,7 @@
  */
 namespace Prooph\ProophessorDo\Model\User;
 
-use ValueObjects\Web\EmailAddress as VOEMailAddress;
+use Prooph\ProophessorDo\Model\User\Exception\InvalidEmailAddress;
 
 /**
  * Class EmailAddress
@@ -23,7 +23,7 @@ use ValueObjects\Web\EmailAddress as VOEMailAddress;
 final class EmailAddress
 {
     /**
-     * @var VOEMailAddress
+     * @var string
      */
     private $email;
 
@@ -31,16 +31,19 @@ final class EmailAddress
      * @param string $email
      * @return EmailAddress
      */
-    public static function fromString($email)
+    public static function fromString(string $email)
     {
-        return new self(VOEMailAddress::fromNative($email));
+        return new self($email);
     }
 
     /**
-     * @param VOEMailAddress $emailAddress
+     * @param string $emailAddress
      */
-    private function __construct(VOEMailAddress $emailAddress)
+    private function __construct(string $emailAddress)
     {
+        if (!filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
+            throw InvalidEmailAddress::reason('filter_var returned false');
+        }
         $this->email = $emailAddress;
     }
 
@@ -49,7 +52,7 @@ final class EmailAddress
      */
     public function toString()
     {
-        return $this->email->toNative();
+        return $this->email;
     }
 
     /**
