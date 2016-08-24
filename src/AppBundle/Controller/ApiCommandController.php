@@ -12,8 +12,10 @@ declare(strict_types = 1);
 namespace Prooph\AppBundle\Controller;
 
 use Prooph\Common\Messaging\MessageFactory;
+use Prooph\EventStore\Metadata\MetadataEnricherPlugin;
 use Prooph\ServiceBus\CommandBus;
 use Prooph\ServiceBus\Exception\CommandDispatchException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

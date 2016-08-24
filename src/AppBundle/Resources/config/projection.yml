@@ -1,0 +1,24 @@
+services:
+  proophdo.todo_projection.user_finder:
+    class: Prooph\ProophessorDo\Projection\User\UserFinder
+    arguments: ['@doctrine.dbal.default_connection']
+
+  proophdo.todo_projection.user_projector:
+    class: Prooph\ProophessorDo\Projection\User\UserProjector
+    arguments: ['@doctrine.dbal.default_connection', '@proophdo.todo_projection.user_finder']
+
+  proophdo.todo_projection.todo_finder:
+    class: Prooph\ProophessorDo\Projection\Todo\TodoFinder
+    arguments: ['@doctrine.dbal.default_connection']
+
+  proophdo.todo_projection.todo_projector:
+    class: Prooph\ProophessorDo\Projection\Todo\TodoProjector
+    arguments: ['@doctrine.dbal.default_connection']
+
+  proophdo.todo_projection.todo_reminder_finder:
+    class: Prooph\ProophessorDo\Projection\Todo\TodoReminderFinder
+    arguments: ['@doctrine.dbal.default_connection']
+
+  proophdo.todo_projection.todo_reminder_projector:
+    class: Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector
+    arguments: ['@doctrine.dbal.default_connection']

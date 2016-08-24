@@ -36,8 +36,8 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "symfony/assetic-bundle": "^2.8",
-        "prooph/service-bus-symfony-bundle": "dev-master",
-        "prooph/event-store-symfony-bundle": "dev-master",
+        "prooph/service-bus-symfony-bundle": "v0.2.x",
+        "prooph/event-store-symfony-bundle": "v0.2.x",
         "prooph/event-sourcing": "^4.0",
         "prooph/event-store-doctrine-adapter": "^3.2",
         "prooph/event-store-bus-bridge": "^2.0"

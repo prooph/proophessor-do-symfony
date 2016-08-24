@@ -1,0 +1,33 @@
+prooph_event_store:
+  stores:
+    todo_store:
+      adapter: 'prooph_event_store.doctrine_adapter.todo_store'
+      repositories:
+        todo_list:
+            repository_class: 'Prooph\ProophessorDo\Infrastructure\Repository\EventStoreTodoList'
+            aggregate_type: 'Prooph\ProophessorDo\Model\Todo\Todo'
+            aggregate_translator: 'prooph_event_sourcing.aggregate_translator'
+
+        user_collection:
+            repository_class: 'Prooph\ProophessorDo\Infrastructure\Repository\EventStoreUserCollection'
+            aggregate_type: 'Prooph\ProophessorDo\Model\User\User'
+            aggregate_translator: 'prooph_event_sourcing.aggregate_translator'
+
+services:
+  prooph_event_store.doctrine_adapter.todo_store:
+      class: Prooph\EventStore\Adapter\Doctrine\DoctrineEventStoreAdapter
+      arguments: ['@database_connection', '@prooph_event_store.message_factory', '@prooph_event_store.message_converter', '@prooph_event_store.payload_serializer', '%prooph_event_store.stream_table_map%']
+
+  'prooph_event_sourcing.aggregate_translator':
+      class: Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator
+
+  'prooph_event_store_bus_bridge.transaction_manager':
+      class: Prooph\EventStoreBusBridge\TransactionManager
+      tags:
+        - { name: 'prooph_event_store.todo_store.plugin' }
+
+  'prooph_event_store_bus_bridge.todo_event_publisher':
+      class: Prooph\EventStoreBusBridge\EventPublisher
+      arguments: ['@prooph_service_bus.todo_event_bus']
+      tags:
+        - { name: 'prooph_event_store.todo_store.plugin' }

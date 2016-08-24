@@ -10,7 +10,7 @@
         {% else %}
             <div class="list-group">
                 {% for user in users %}
-                    <a href="{{ path('page::user-todo-list', {'user_id': user.id} ) }}" class="list-group-item"><strong>{{ user.name }}</strong>
+                    <a href="{{ path('page::user-todo-list', {'userid': user.id} ) }}" class="list-group-item"><strong>{{ user.name }}</strong>
                     <small class="text-info">
                         &nbsp;&nbsp;open Todos: {{ user.open_todos + user.expired_todos }}&nbsp;&nbsp;|
                         &nbsp;&nbsp;expired Todos: {{ user.expired_todos }}&nbsp;&nbsp;|
