@@ -41,7 +41,7 @@ final class MarkTodoAsDoneHandler
     public function __invoke(MarkTodoAsDone $command)
     {
         $todo = $this->todoList->get($command->todoId());
-        if (! $todo) {
+        if (!$todo) {
             throw TodoNotFound::withTodoId($command->todoId());
         }
 

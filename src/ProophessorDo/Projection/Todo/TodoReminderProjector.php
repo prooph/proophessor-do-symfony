@@ -42,7 +42,7 @@ final class TodoReminderProjector
      */
     public function onReminderWasAddedToTodo(ReminderWasAddedToTodo $event)
     {
-        // remove other reminder for todo first
+        // Remove other reminder for todo first
         $this->connection->delete(
             Table::TODO_REMINDER,
             [

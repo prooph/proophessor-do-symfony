@@ -41,9 +41,11 @@ final class UserListController
     {
         $users = $this->userFinder->findAll();
 
-        return $this->templateEngine->renderResponse(
-            'AppBundle:Default:user-list.html.twig',
-            ['users' => $users]
-        );
+        return $this
+            ->templateEngine
+            ->renderResponse(
+                'AppBundle:Default:user-list.html.twig',
+                ['users' => $users]
+            );
     }
 }

@@ -23,7 +23,7 @@
         var self = this;
 
         self.context = context;
-        self.userTodoFormLink = "{{ path('page::user-todo-form', {'userid': '00000000-0000-0000-0000-000000000000'}) }}".replace('00000000-0000-0000-0000-000000000000', context.app.userId);
+        self.userTodoFormLink = "{{ path('page::user-todo-form', {'userId': '00000000-0000-0000-0000-000000000000'}) }}".replace('00000000-0000-0000-0000-000000000000', context.app.userId);
         console.log(self.userId);
         self.todos = context.app.TodoStore.getAll();
     }

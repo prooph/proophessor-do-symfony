@@ -56,7 +56,7 @@ final class TodoReminder
      */
     public function isInThePast()
     {
-        return $this->reminder < new \DateTimeImmutable("now", new \DateTimeZone('UTC'));
+        return $this->reminder < new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     /**
@@ -64,7 +64,7 @@ final class TodoReminder
      */
     public function isInTheFuture()
     {
-        return $this->reminder > new \DateTimeImmutable("now", new \DateTimeZone('UTC'));
+        return $this->reminder > new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     /**

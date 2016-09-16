@@ -32,8 +32,10 @@ final class UserRegistrationController
 
     public function registerAction(Request $request): Response
     {
-        return $this->templateEngine->renderResponse(
-            'AppBundle:Default:user-registration-form.html.twig'
-        );
+        return $this
+            ->templateEngine
+            ->renderResponse(
+                'AppBundle:Default:user-registration-form.html.twig'
+            );
     }
 }

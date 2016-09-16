@@ -10,10 +10,10 @@
  */
 namespace Prooph\ProophessorDo\Model\User;
 
-use Prooph\ProophessorDo\Model\Todo\Todo;
-use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
+use Prooph\ProophessorDo\Model\Todo\Todo;
+use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 
 /**

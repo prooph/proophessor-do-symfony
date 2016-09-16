@@ -2,8 +2,8 @@
 
 namespace Prooph\ProophessorDo\Model\Todo\Exception;
 
-use Prooph\ProophessorDo\Model\User\UserId;
 use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
  * Class InvalidDeadline
@@ -20,20 +20,20 @@ final class InvalidDeadline extends \Exception
      */
     public static function userIsNotAssignee(UserId $user, UserId $assigneeId)
     {
-        return new self(sprintf(
-            'User %s tried to add a deadline to the todo owned by %s',
-            $user->toString(),
-            $assigneeId->toString()
-        ));
+        return new self(
+            sprintf(
+                'User %s tried to add a deadline to the todo owned by %s',
+                $user->toString(),
+                $assigneeId->toString()
+            )
+        );
     }
 
 
     public static function deadlineInThePast(TodoDeadline $deadline)
     {
-        return new self(sprintf(
-            'Provided deadline %s is in the past from %s',
-            $deadline->toString(),
-            $deadline->createdOn()
-        ));
+        return new self(
+            sprintf('Provided deadline %s is in the past from %s', $deadline->toString(), $deadline->createdOn())
+        );
     }
 }

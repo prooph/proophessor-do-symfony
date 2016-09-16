@@ -24,7 +24,7 @@
     },
     "require": {
         "php": "^7.0",
-        "symfony/symfony": "3.1.*",
+        "symfony/symfony": "^3.1",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-cache-bundle": "^1.2",
@@ -40,14 +40,15 @@
         "prooph/event-store-symfony-bundle": "v0.2.x",
         "prooph/event-sourcing": "^4.0",
         "prooph/event-store-doctrine-adapter": "^3.2",
-        "prooph/event-store-bus-bridge": "^2.0"
+        "prooph/event-store-bus-bridge": "^2.0",
+        "zendframework/zend-mail": "^2.7"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.3",
-        "phpunit/php-invoker": "^1.1.4",
+        "phpunit/phpunit": "^5.5",
+        "phpunit/php-invoker": "^1.1",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
-        "fabpot/php-cs-fixer": "^1.11"
+        "friendsofphp/php-cs-fixer": "^1.12"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

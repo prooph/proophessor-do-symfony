@@ -24,16 +24,18 @@ use Prooph\ProophessorDo\Model\Todo\TodoId;
 final class MarkTodoAsDone extends Command implements PayloadConstructable
 {
     use PayloadTrait;
+
     /**
-     *
-     * @param type $todoId
+     * @param string $todoId
      * @return MarkTodoAsDone
      */
     public static function forTodo($todoId)
     {
-        return new self([
-            'todo_id' => (string)$todoId,
-        ]);
+        return new self(
+            [
+                'todo_id' => (string)$todoId,
+            ]
+        );
     }
 
     /**

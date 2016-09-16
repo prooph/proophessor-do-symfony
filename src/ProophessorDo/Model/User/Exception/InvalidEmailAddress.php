@@ -20,7 +20,7 @@ final class InvalidEmailAddress extends \InvalidArgumentException
 {
     /**
      * @param string $msg
-     * @return InvalidName
+     * @return InvalidEmailAddress
      */
     public static function reason($msg)
     {

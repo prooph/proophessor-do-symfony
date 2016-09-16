@@ -22,20 +22,28 @@ use Prooph\ProophessorDo\Model\Todo\TodoStatus;
  */
 final class TodoWasReopened extends AggregateChanged
 {
+    /**
+     * @var TodoId
+     */
     private $todoId;
 
+    /**
+     * @var TodoStatus
+     */
     private $status;
 
     /**
      * @param TodoId $todoId
      * @param TodoStatus $status
-     * @return TodoWasMarkedAsDone
+     * @return TodoWasReopened
      */
     public static function withStatus(TodoId $todoId, TodoStatus $status)
     {
-        $event = self::occur($todoId->toString(), [
-            'status' => $status->toString()
-        ]);
+        $event = self::occur(
+            $todoId->toString(), [
+                'status' => $status->toString()
+            ]
+        );
 
         $event->todoId = $todoId;
         $event->status = $status;
@@ -51,6 +59,7 @@ final class TodoWasReopened extends AggregateChanged
         if (null === $this->todoId) {
             $this->todoId = TodoId::fromString($this->aggregateId());
         }
+
         return $this->todoId;
     }
 
@@ -62,6 +71,7 @@ final class TodoWasReopened extends AggregateChanged
         if (null === $this->status) {
             $this->status = TodoStatus::fromString($this->payload['status']);
         }
+
         return $this->status;
     }
 }

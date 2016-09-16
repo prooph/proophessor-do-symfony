@@ -46,17 +46,20 @@ final class UserTodoListController
         $this->todoFinder = $todoFinder;
     }
 
-    public function listAction($userid): Response
+    public function listAction(Request $request): Response
     {
-        $user = $this->userFinder->findById($userid);
-        $todos = $this->todoFinder->findByAssigneeId($userid);
+        $userId = $request->get('userId');
+        $user = $this->userFinder->findById($userId);
+        $todos = $this->todoFinder->findByAssigneeId($userId);
 
-        return $this->templateEngine->renderResponse(
-            'AppBundle:Default:user-todo-list.html.twig',
-            [
-                'user' => $user,
-                'todos' => $todos
-            ]
-        );
+        return $this
+            ->templateEngine
+            ->renderResponse(
+                'AppBundle:Default:user-todo-list.html.twig',
+                [
+                    'user' => $user,
+                    'todos' => $todos
+                ]
+            );
     }
 }

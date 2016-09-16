@@ -23,10 +23,19 @@ use Prooph\ProophessorDo\Model\User\UserId;
  */
 final class UserWasRegistered extends AggregateChanged
 {
+    /**
+     * @var UserId
+     */
     private $userId;
 
+    /**
+     * @var string
+     */
     private $username;
 
+    /**
+     * @var EmailAddress
+     */
     private $emailAddress;
 
     /**
@@ -39,10 +48,13 @@ final class UserWasRegistered extends AggregateChanged
     {
         Assertion::string($name);
 
-        $event = self::occur($userId->toString(), [
-            'name' => $name,
-            'email' => $emailAddress->toString(),
-        ]);
+        $event = self::occur(
+            $userId->toString(),
+            [
+                'name' => $name,
+                'email' => $emailAddress->toString(),
+            ]
+        );
 
         $event->userId = $userId;
         $event->username = $name;
@@ -56,7 +68,7 @@ final class UserWasRegistered extends AggregateChanged
      */
     public function userId()
     {
-        if (is_null($this->userId)) {
+        if ($this->userId === null) {
             $this->userId = UserId::fromString($this->aggregateId());
         }
 
@@ -68,7 +80,7 @@ final class UserWasRegistered extends AggregateChanged
      */
     public function name()
     {
-        if (is_null($this->username)) {
+        if ($this->username === null) {
             $this->username = $this->payload['name'];
         }
         return $this->username;
@@ -79,7 +91,7 @@ final class UserWasRegistered extends AggregateChanged
      */
     public function emailAddress()
     {
-        if (is_null($this->emailAddress)) {
+        if ($this->emailAddress === null) {
             $this->emailAddress = EmailAddress::fromString($this->payload['email']);
         }
         return $this->emailAddress;

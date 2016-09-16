@@ -32,9 +32,11 @@ final class ReopenTodo extends Command implements PayloadConstructable
      */
     public static function forTodo($todoId)
     {
-        return new self([
-            'todo_id' => (string) $todoId,
-        ]);
+        return new self(
+            [
+                'todo_id' => (string)$todoId,
+            ]
+        );
     }
 
     /**

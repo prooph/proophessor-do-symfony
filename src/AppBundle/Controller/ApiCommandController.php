@@ -12,10 +12,8 @@ declare(strict_types = 1);
 namespace Prooph\AppBundle\Controller;
 
 use Prooph\Common\Messaging\MessageFactory;
-use Prooph\EventStore\Metadata\MetadataEnricherPlugin;
 use Prooph\ServiceBus\CommandBus;
 use Prooph\ServiceBus\Exception\CommandDispatchException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,17 +43,26 @@ final class ApiCommandController
         $commandName = $request->attributes->get(self::NAME_ATTRIBUTE);
 
         if (null === $commandName) {
-            return JsonResponse::create([
-                'message' => sprintf('Command name attribute ("%s") was not found in request.', self::NAME_ATTRIBUTE)
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return JsonResponse::create(
+                [
+                    'message' => sprintf(
+                        'Command name attribute ("%s") was not found in request.',
+                        self::NAME_ATTRIBUTE
+                    )
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
 
         try {
             $payload = $this->getPayloadFromRequest($request);
         } catch (\Throwable $error) {
-            return JsonResponse::create([
-                'message' => $error->getMessage()
-            ], $error->getCode());
+            return JsonResponse::create(
+                [
+                    'message' => $error->getMessage()
+                ],
+                $error->getCode()
+            );
         }
 
         $command = $this->messageFactory->createMessageFromArray($commandName, ['payload' => $payload]);
@@ -65,7 +72,10 @@ final class ApiCommandController
         } catch (CommandDispatchException $ex) {
             $params = $ex->getFailedDispatchEvent()->getParams();
 
-            return JsonResponse::create(['message' => $ex->getPrevious()->getMessage(), 'dispatch_details' => $params], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return JsonResponse::create(
+                ['message' => $ex->getPrevious()->getMessage(), 'dispatch_details' => $params],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         } catch (\Throwable $error) {
             return JsonResponse::create(['message' => $error->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -88,6 +98,6 @@ final class ApiCommandController
                 throw new \Exception('Invalid JSON.', 400);
         }
 
-        return is_null($payload) ? [] : $payload;
+        return $payload === null ? [] : $payload;
     }
 }

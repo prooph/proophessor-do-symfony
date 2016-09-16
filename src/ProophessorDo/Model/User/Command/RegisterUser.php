@@ -13,8 +13,8 @@ namespace Prooph\ProophessorDo\Model\User\Command;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
-use Prooph\ProophessorDo\Model\User\UserId;
 use Prooph\ProophessorDo\Model\User\EmailAddress;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
  * Class RegisterUser
@@ -34,11 +34,13 @@ final class RegisterUser extends Command implements PayloadConstructable
      */
     public static function withData($userId, $name, $email)
     {
-        return new self([
-            'user_id' => (string)$userId,
-            'name' => (string)$name,
-            'email' => (string)$email
-        ]);
+        return new self(
+            [
+                'user_id' => (string)$userId,
+                'name' => (string)$name,
+                'email' => (string)$email
+            ]
+        );
     }
 
     /**
