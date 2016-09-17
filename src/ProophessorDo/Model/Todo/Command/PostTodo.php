@@ -10,11 +10,11 @@
  */
 namespace Prooph\ProophessorDo\Model\Todo\Command;
 
-use Prooph\ProophessorDo\Model\User\UserId;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
  * Class PostTodo
@@ -25,6 +25,7 @@ use Prooph\ProophessorDo\Model\Todo\TodoId;
 final class PostTodo extends Command implements PayloadConstructable
 {
     use PayloadTrait;
+
     /**
      * @param string $assigneeId
      * @param string $text
@@ -33,11 +34,13 @@ final class PostTodo extends Command implements PayloadConstructable
      */
     public static function forUser($assigneeId, $text, $todoId)
     {
-        return new self([
-            'assignee_id' => (string)$assigneeId,
-            'todo_id' => (string)$todoId,
-            'text' => (string)$text
-        ]);
+        return new self(
+            [
+                'assignee_id' => (string)$assigneeId,
+                'todo_id' => (string)$todoId,
+                'text' => (string)$text
+            ]
+        );
     }
 
     /**

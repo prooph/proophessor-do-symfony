@@ -13,15 +13,17 @@ use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
 final class TodoNotExpired extends \RuntimeException
 {
     /**
-     * @param TodoStatus $status
-     * @param Todo       $todo
+     * @param TodoDeadline $deadline
+     * @param Todo $todo
      * @return TodoNotExpired
      */
     public static function withDeadline(TodoDeadline $deadline, Todo $todo)
     {
-        return new self(sprintf(
-            'Tried to mark a non-expired Todo as expired.  Todo will expire after the deadline %s.',
-            $deadline->toString()
-        ));
+        return new self(
+            sprintf(
+                'Tried to mark a non-expired Todo as expired. Todo will expire after the deadline %s.',
+                $deadline->toString()
+            )
+        );
     }
 }

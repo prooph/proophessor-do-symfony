@@ -22,15 +22,18 @@ class DefaultController
      */
     private $templateEngine;
 
-    public function __construct(EngineInterface $engine) {
+    public function __construct(EngineInterface $engine)
+    {
         $this->templateEngine = $engine;
     }
 
     public function indexAction(Request $request): Response
     {
-        return $this->templateEngine->renderResponse(
-            'AppBundle:Default:index.html.twig',
-            ['sidebar_right' => '']
-        );
+        return $this
+            ->templateEngine
+            ->renderResponse(
+                'AppBundle:Default:index.html.twig',
+                ['sidebar_right' => '']
+            );
     }
 }

@@ -52,17 +52,17 @@ final class RemindTodoAssigneeHandler
      */
     private function reminderShouldBeProcessed(Todo $todo, TodoReminder $reminder)
     {
-        // drop command, wrong reminder
+        // Drop command, wrong reminder
         if (!$todo->reminder()->equals($reminder)) {
             return false;
         }
 
-        // drop command, reminder is closed
+        // Drop command, reminder is closed
         if (!$reminder->isOpen()) {
             return false;
         }
 
-        // drop command, reminder is in future
+        // Drop command, reminder is in future
         if ($reminder->isInTheFuture()) {
             return false;
         }

@@ -15,6 +15,7 @@ use Prooph\ProophessorDo\Projection\User\UserFinder;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Class UserTodoForm
@@ -33,13 +34,13 @@ final class UserTodoFormController
 
     public function __construct(EngineInterface $templateEngine, UserFinder $userFinder)
     {
-        $this->templateEngine  = $templateEngine;
+        $this->templateEngine = $templateEngine;
         $this->userFinder = $userFinder;
     }
 
     public function formAction(Request $request): Response
     {
-        $userId = $request->get('userid');
+        $userId = $request->get('userId');
 
         $invalidUser = true;
         $user = null;
@@ -52,9 +53,11 @@ final class UserTodoFormController
             }
         }
 
-        return $this->templateEngine->renderResponse(
-            'AppBundle:Default:user-todo-form.html.twig',
-            ['invalidUser' => $invalidUser, 'user' => $user]
-        );
+        return $this
+            ->templateEngine
+            ->renderResponse(
+                'AppBundle:Default:user-todo-form.html.twig',
+                ['invalidUser' => $invalidUser, 'user' => $user]
+            );
     }
 }

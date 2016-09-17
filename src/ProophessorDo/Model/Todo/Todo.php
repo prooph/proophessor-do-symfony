@@ -51,7 +51,7 @@ final class Todo extends AggregateRoot
     private $status;
 
     /**
-     * @var \DateTimeImmutable
+     * @var TodoDeadline
      */
     private $deadline;
 
@@ -121,7 +121,6 @@ final class Todo extends AggregateRoot
     }
 
     /**
-     * @return null
      * @throws Exception\TodoNotExpired
      * @throws Exception\TodoNotOpen
      */
@@ -141,7 +140,6 @@ final class Todo extends AggregateRoot
     }
 
     /**
-     * @return null
      * @throws Exception\TodoNotExpired
      */
     public function unmarkAsExpired()
@@ -231,7 +229,7 @@ final class Todo extends AggregateRoot
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return TodoDeadline
      */
     public function deadline()
     {

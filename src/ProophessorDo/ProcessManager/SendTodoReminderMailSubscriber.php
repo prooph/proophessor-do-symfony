@@ -1,11 +1,12 @@
 <?php
+
 namespace Prooph\ProophessorDo\ProcessManager;
 
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
+use Zend\Mail\Message;
 use Zend\Mail\Transport\TransportInterface;
-use Zend\Mail;
 
 /**
  * Class SendTodoReminderMailSubscriber
@@ -48,7 +49,7 @@ final class SendTodoReminderMailSubscriber
         $user = $this->userFinder->findById($event->userId()->toString());
         $todo = $this->todoFinder->findById($event->todoId()->toString());
 
-        $mail = new Mail\Message();
+        $mail = new Message();
         $mail->setBody("Hello {$user->name}. This a reminder for '{$todo->text}'. Don't be lazy!");
         $mail->setFrom('reminder@getprooph.org', 'Proophessor-do');
         $mail->addTo($user->email, $user->name);

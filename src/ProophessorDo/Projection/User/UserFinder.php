@@ -10,8 +10,8 @@
  */
 namespace Prooph\ProophessorDo\Projection\User;
 
-use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Connection;
+use Prooph\ProophessorDo\Projection\Table;
 
 /**
  * Class UserFinder
@@ -37,7 +37,7 @@ class UserFinder
      */
     public function findAll()
     {
-        return $this->connection->fetchAll(sprintf("SELECT * FROM %s", Table::USER));
+        return $this->connection->fetchAll(sprintf('SELECT * FROM %s', Table::USER));
     }
 
     /**
@@ -46,9 +46,10 @@ class UserFinder
      */
     public function findById($userId)
     {
-        $stmt = $this->connection->prepare(sprintf("SELECT * FROM %s where id = :user_id", Table::USER));
+        $stmt = $this->connection->prepare(sprintf('SELECT * FROM %s where id = :user_id', Table::USER));
         $stmt->bindValue('user_id', $userId);
         $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -59,12 +60,13 @@ class UserFinder
     public function findUserOfTodo($todoId)
     {
         $stmt = $this->connection->prepare(sprintf(
-            "SELECT u.* FROM %s as u JOIN %s as t ON u.id = t.assignee_id  where t.id = :todo_id",
+            'SELECT u.* FROM %s as u JOIN %s as t ON u.id = t.assignee_id  where t.id = :todo_id',
             Table::USER,
             Table::TODO
         ));
         $stmt->bindValue('todo_id', $todoId);
         $stmt->execute();
+
         return $stmt->fetch();
     }
 }

@@ -10,10 +10,10 @@
  */
 namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
-use Prooph\ProophessorDo\Model\User\UserCollection;
-use Prooph\ProophessorDo\Model\User\Exception\UserNotFound;
 use Prooph\ProophessorDo\Model\Todo\Command\PostTodo;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
+use Prooph\ProophessorDo\Model\User\Exception\UserNotFound;
+use Prooph\ProophessorDo\Model\User\UserCollection;
 
 /**
  * Class PostTodoHandler
@@ -45,13 +45,13 @@ final class PostTodoHandler
 
     /**
      * @param PostTodo $command
-     * @throws \Prooph\ProophessorDo\Model\User\Exception\UserNotFound
+     * @throws UserNotFound
      */
     public function __invoke(PostTodo $command)
     {
         $user = $this->userCollection->get($command->assigneeId());
 
-        if (! $user) {
+        if (!$user) {
             throw UserNotFound::withUserId($command->assigneeId());
         }
 

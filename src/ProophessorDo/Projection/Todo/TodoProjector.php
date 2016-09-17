@@ -46,12 +46,15 @@ final class TodoProjector
      */
     public function onTodoWasPosted(TodoWasPosted $event)
     {
-        $this->connection->insert(Table::TODO, [
-            'id' => $event->todoId()->toString(),
-            'assignee_id' => $event->assigneeId()->toString(),
-            'text' => $event->text(),
-            'status' => $event->todoStatus()->toString()
-        ]);
+        $this->connection->insert(
+            Table::TODO,
+            [
+                'id' => $event->todoId()->toString(),
+                'assignee_id' => $event->assigneeId()->toString(),
+                'text' => $event->text(),
+                'status' => $event->todoStatus()->toString()
+            ]
+        );
     }
 
     /**

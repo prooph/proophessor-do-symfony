@@ -10,6 +10,7 @@
  */
 namespace Prooph\ProophessorDo\Projection\User;
 
+use Doctrine\DBAL\Connection;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
@@ -18,7 +19,6 @@ use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 use Prooph\ProophessorDo\Model\User\Exception\UserNotFound;
 use Prooph\ProophessorDo\Projection\Table;
-use Doctrine\DBAL\Connection;
 
 /**
  * Class UserProjector
@@ -53,11 +53,14 @@ final class UserProjector
      */
     public function onUserWasRegistered(UserWasRegistered $event)
     {
-        $this->connection->insert(Table::USER, [
-            'id' => $event->userId()->toString(),
-            'name' => $event->name(),
-            'email' => $event->emailAddress()->toString()
-        ]);
+        $this->connection->insert(
+            Table::USER,
+            [
+                'id' => $event->userId()->toString(),
+                'name' => $event->name(),
+                'email' => $event->emailAddress()->toString()
+            ]
+        );
     }
 
     /**
@@ -70,16 +73,17 @@ final class UserProjector
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 
-        if (! $user) {
+        if (!$user) {
             throw new UserNotFound(
                 sprintf(
-                    "Data of the assigned user of the todo %s cannot be found",
+                    'Data of the assigned user of the todo %s cannot be found',
                     $event->todoId()->toString()
                 )
             );
         }
 
-        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos + 1 WHERE id = :assignee_id', Table::USER));
+        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos + 1 WHERE id = :assignee_id',
+            Table::USER));
 
         $stmt->bindValue('assignee_id', $event->assigneeId()->toString());
 
@@ -94,16 +98,17 @@ final class UserProjector
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 
-        if (! $user) {
+        if (!$user) {
             throw new UserNotFound(
                 sprintf(
-                    "Data of the assigned user of the todo %s cannot be found",
+                    'Data of the assigned user of the todo %s cannot be found',
                     $event->todoId()->toString()
                 )
             );
         }
 
-        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos - 1, done_todos = done_todos + 1 WHERE id = :assignee_id', Table::USER));
+        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos - 1, done_todos = done_todos + 1 WHERE id = :assignee_id',
+            Table::USER));
 
         $stmt->bindValue('assignee_id', $user->id);
 
@@ -118,16 +123,17 @@ final class UserProjector
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 
-        if (! $user) {
+        if (!$user) {
             throw new UserNotFound(
                 sprintf(
-                    "Data of the assigned user of the todo %s cannot be found",
+                    'Data of the assigned user of the todo %s cannot be found',
                     $event->todoId()->toString()
                 )
             );
         }
 
-        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos + 1, done_todos = done_todos - 1 WHERE id = :assignee_id', Table::USER));
+        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos + 1, done_todos = done_todos - 1 WHERE id = :assignee_id',
+            Table::USER));
 
         $stmt->bindValue('assignee_id', $user->id);
 
@@ -142,16 +148,23 @@ final class UserProjector
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 
-        if (! $user) {
+        if (!$user) {
             throw new UserNotFound(
                 sprintf(
-                    "Data of the assigned user of the todo %s cannot be found",
+                    'Data of the assigned user of the todo %s cannot be found',
                     $event->todoId()->toString()
                 )
             );
         }
 
-        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos - 1, expired_todos = expired_todos + 1 WHERE id = :assignee_id', Table::USER));
+        $stmt = $this
+            ->connection
+            ->prepare(
+                sprintf(
+                    'UPDATE %s SET open_todos = open_todos - 1, expired_todos = expired_todos + 1 WHERE id = :assignee_id',
+                    Table::USER
+                )
+            );
 
         $stmt->bindValue('assignee_id', $user->id);
 
@@ -166,16 +179,21 @@ final class UserProjector
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 
-        if (! $user) {
+        if (!$user) {
             throw new UserNotFound(
                 sprintf(
-                    "Data of the assigned user of the todo %s cannot be found",
+                    'Data of the assigned user of the todo %s cannot be found',
                     $event->todoId()->toString()
                 )
             );
         }
 
-        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos + 1, expired_todos = expired_todos - 1 WHERE id = :assignee_id', Table::USER));
+        $stmt = $this->connection->prepare(
+            sprintf(
+                'UPDATE %s SET open_todos = open_todos + 1, expired_todos = expired_todos - 1 WHERE id = :assignee_id',
+                Table::USER
+            )
+        );
 
         $stmt->bindValue('assignee_id', $user->id);
 

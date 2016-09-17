@@ -45,7 +45,7 @@
                 }).then(
                     function () {
                         window.location.href =
-                            '{{  path('page::user-todo-list', {'userid': '00000000-0000-0000-0000-000000000000'}) }}'
+                            '{{  path('page::user-todo-list', {'userId': '00000000-0000-0000-0000-000000000000'}) }}'
                                 .replace('00000000-0000-0000-0000-000000000000', userId);
                     },
                     $.failNotify

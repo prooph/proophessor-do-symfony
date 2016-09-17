@@ -44,6 +44,7 @@ final class EmailAddress
         if (!filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
             throw InvalidEmailAddress::reason('filter_var returned false');
         }
+
         $this->email = $emailAddress;
     }
 

@@ -22,10 +22,19 @@ use Prooph\ProophessorDo\Model\Todo\TodoStatus;
  */
 final class TodoWasMarkedAsDone extends AggregateChanged
 {
+    /**
+     * @var TodoId
+     */
     private $todoId;
 
+    /**
+     * @var TodoStatus
+     */
     private $oldStatus;
 
+    /**
+     * @var TodoStatus
+     */
     private $newStatus;
 
     /**
@@ -36,10 +45,13 @@ final class TodoWasMarkedAsDone extends AggregateChanged
      */
     public static function fromStatus(TodoId $todoId, TodoStatus $oldStatus, TodoStatus $newStatus)
     {
-        $event = self::occur($todoId->toString(), [
-            'old_status' => $oldStatus->toString(),
-            'new_status' => $newStatus->toString()
-        ]);
+        $event = self::occur(
+            $todoId->toString(),
+            [
+                'old_status' => $oldStatus->toString(),
+                'new_status' => $newStatus->toString()
+            ]
+        );
 
         $event->todoId = $todoId;
         $event->oldStatus = $oldStatus;
@@ -53,9 +65,10 @@ final class TodoWasMarkedAsDone extends AggregateChanged
      */
     public function todoId()
     {
-        if (is_null($this->todoId)) {
+        if ($this->todoId === null) {
             $this->todoId = TodoId::fromString($this->aggregateId());
         }
+
         return $this->todoId;
     }
 
@@ -64,9 +77,10 @@ final class TodoWasMarkedAsDone extends AggregateChanged
      */
     public function oldStatus()
     {
-        if (is_null($this->oldStatus)) {
+        if ($this->oldStatus === null) {
             $this->oldStatus = TodoStatus::fromString($this->payload['old_status']);
         }
+
         return $this->oldStatus;
     }
 
@@ -75,9 +89,10 @@ final class TodoWasMarkedAsDone extends AggregateChanged
      */
     public function newStatus()
     {
-        if (is_null($this->newStatus)) {
+        if ($this->newStatus === null) {
             $this->newStatus = TodoStatus::fromString($this->payload['new_status']);
         }
+
         return $this->newStatus;
     }
 }

@@ -10,9 +10,9 @@
  */
 namespace Prooph\ProophessorDo\Projection\Todo;
 
+use Doctrine\DBAL\Connection;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 use Prooph\ProophessorDo\Projection\Table;
-use Doctrine\DBAL\Connection;
 
 /**
  * Class TodoFinder
@@ -41,7 +41,7 @@ class TodoFinder
      */
     public function findAll()
     {
-        return $this->connection->fetchAll(sprintf("SELECT * FROM %s", Table::TODO));
+        return $this->connection->fetchAll(sprintf('SELECT * FROM %s', Table::TODO));
     }
 
     /**
@@ -49,7 +49,9 @@ class TodoFinder
      */
     public function findAllOpen()
     {
-        return $this->connection->fetchAll(sprintf("SELECT * FROM %s WHERE status = '%s'", Table::TODO, TodoStatus::OPEN));
+        return $this
+            ->connection
+            ->fetchAll(sprintf("SELECT * FROM %s WHERE status = '%s'", Table::TODO, TodoStatus::OPEN));
     }
 
     /**
@@ -59,7 +61,7 @@ class TodoFinder
     public function findByAssigneeId($assigneeId)
     {
         return $this->connection->fetchAll(
-            sprintf("SELECT * FROM %s WHERE assignee_id = :assignee_id", Table::TODO),
+            sprintf('SELECT * FROM %s WHERE assignee_id = :assignee_id', Table::TODO),
             ['assignee_id' => $assigneeId]
         );
     }
@@ -70,7 +72,7 @@ class TodoFinder
      */
     public function findById($todoId)
     {
-        $stmt = $this->connection->prepare(sprintf("SELECT * FROM %s where id = :todo_id", Table::TODO));
+        $stmt = $this->connection->prepare(sprintf('SELECT * FROM %s where id = :todo_id', Table::TODO));
         $stmt->bindValue('todo_id', $todoId);
         $stmt->execute();
         return $stmt->fetch();
@@ -81,8 +83,11 @@ class TodoFinder
      */
     public function findByOpenReminders()
     {
-        $stmt = $this->connection->prepare(sprintf("SELECT * FROM %s where reminder < NOW() AND reminded = 0", Table::TODO));
+        $stmt = $this
+            ->connection
+            ->prepare(sprintf('SELECT * FROM %s where reminder < NOW() AND reminded = 0', Table::TODO));
         $stmt->execute();
+
         return $stmt->fetchAll();
     }
 
@@ -95,9 +100,8 @@ class TodoFinder
             sprintf(
                 "SELECT * FROM %s WHERE status = :status AND deadline < CONVERT_TZ(NOW(), @@session.time_zone, '+00:00')",
                 Table::TODO
-            ), [
-                'status' => TodoStatus::OPEN,
-            ]
+            ),
+            ['status' => TodoStatus::OPEN]
         );
     }
 }

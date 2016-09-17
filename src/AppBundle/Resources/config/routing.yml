@@ -11,11 +11,11 @@
     defaults: { _controller: proophdo.user_registratrion_controller:registerAction }
 
 'page::user-todo-list':
-    path:     /user-todo-list/{userid}
+    path:     /user-todo-list/{userId}
     defaults: { _controller: proophdo.user_todo_list_controller:listAction }
 
 'page::user-todo-form':
-    path:     /user-todo-list/{userid}/new-todo
+    path:     /user-todo-list/{userId}/new-todo
     defaults: { _controller: proophdo.user_todo_form_controller:formAction }
 
 'command::register-user':

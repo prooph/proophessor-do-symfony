@@ -57,4 +57,3 @@ prooph_service_bus:
           'Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired':
             - 'proophdo.todo_projection.todo_projector'
             - 'proophdo.todo_projection.user_projector'
-

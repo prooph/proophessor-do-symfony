@@ -10,10 +10,10 @@
  */
 namespace Prooph\ProophessorDo\Model\Todo\Event;
 
-use Prooph\ProophessorDo\Model\User\UserId;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
  * Class TodoWasPosted
@@ -23,10 +23,19 @@ use Prooph\ProophessorDo\Model\Todo\TodoStatus;
  */
 final class TodoWasPosted extends AggregateChanged
 {
+    /**
+     * @var UserId
+     */
     private $assigneeId;
 
+    /**
+     * @var TodoId
+     */
     private $todoId;
 
+    /**
+     * @var TodoStatus
+     */
     private $todoStatus;
 
     /**
@@ -38,11 +47,14 @@ final class TodoWasPosted extends AggregateChanged
      */
     public static function byUser(UserId $assigneeId, $text, TodoId $todoId, TodoStatus $todoStatus)
     {
-        $event = self::occur($todoId->toString(), [
-            'assignee_id' => $assigneeId->toString(),
-            'text' => $text,
-            'status' => $todoStatus->toString()
-        ]);
+        $event = self::occur(
+            $todoId->toString(),
+            [
+                'assignee_id' => $assigneeId->toString(),
+                'text' => $text,
+                'status' => $todoStatus->toString()
+            ]
+        );
 
         $event->todoId = $todoId;
         $event->assigneeId = $assigneeId;
@@ -56,9 +68,10 @@ final class TodoWasPosted extends AggregateChanged
      */
     public function todoId()
     {
-        if (is_null($this->todoId)) {
+        if ($this->todoId === null) {
             $this->todoId = TodoId::fromString($this->aggregateId());
         }
+
         return $this->todoId;
     }
 
@@ -67,9 +80,10 @@ final class TodoWasPosted extends AggregateChanged
      */
     public function assigneeId()
     {
-        if (is_null($this->assigneeId)) {
+        if ($this->assigneeId === null) {
             $this->assigneeId = UserId::fromString($this->payload['assignee_id']);
         }
+
         return $this->assigneeId;
     }
 
@@ -86,9 +100,10 @@ final class TodoWasPosted extends AggregateChanged
      */
     public function todoStatus()
     {
-        if (is_null($this->todoStatus)) {
+        if ($this->todoStatus === null) {
             $this->todoStatus = TodoStatus::fromString($this->payload['status']);
         }
+        
         return $this->todoStatus;
     }
 }

@@ -18,7 +18,6 @@ final class MarkTodoAsExpired extends Command implements PayloadConstructable
     use PayloadTrait;
 
     /**
-     *
      * @param string $todoId
      * @return MarkTodoAsExpired
      * @throws \Assert\AssertionFailedException
@@ -28,9 +27,11 @@ final class MarkTodoAsExpired extends Command implements PayloadConstructable
         Assertion::string($todoId);
         Assertion::notEmpty($todoId);
 
-        return new self([
-            'todo_id' => $todoId,
-        ]);
+        return new self(
+            [
+                'todo_id' => $todoId,
+            ]
+        );
     }
 
     /**

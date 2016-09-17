@@ -20,8 +20,8 @@ use Assert\Assertion;
  */
 final class TodoReminderStatus
 {
-    const OPEN = "open";
-    const CLOSED = "closed";
+    const OPEN = 'open';
+    const CLOSED = 'closed';
 
     /**
      * @var string

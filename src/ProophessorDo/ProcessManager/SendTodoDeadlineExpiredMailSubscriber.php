@@ -4,8 +4,8 @@ namespace Prooph\ProophessorDo\ProcessManager;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
+use Zend\Mail\Message;
 use Zend\Mail\Transport\TransportInterface;
-use Zend\Mail;
 
 /**
  * Class SendTodoDeadlineExpiredMailSubscriber
@@ -62,7 +62,7 @@ final class SendTodoDeadlineExpiredMailSubscriber
             $todo->deadline
         );
 
-        $mail = new Mail\Message();
+        $mail = new Message();
         $mail->setBody($message);
         $mail->setEncoding('utf-8');
         $mail->setFrom('reminder@getprooph.org', 'Proophessor-do');

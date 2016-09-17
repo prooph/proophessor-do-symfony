@@ -38,11 +38,14 @@ final class DeadlineWasAddedToTodo extends AggregateChanged
      */
     public static function byUserToDate(TodoId $todoId, UserId $userId, TodoDeadline $deadline)
     {
-        $event = self::occur($todoId->toString(), [
-            'todo_id' => $todoId->toString(),
-            'user_id' => $userId->toString(),
-            'deadline' => $deadline->toString(),
-        ]);
+        $event = self::occur(
+            $todoId->toString(),
+            [
+                'todo_id' => $todoId->toString(),
+                'user_id' => $userId->toString(),
+                'deadline' => $deadline->toString(),
+            ]
+        );
 
         $event->todoId = $todoId;
         $event->userId = $userId;
@@ -52,7 +55,7 @@ final class DeadlineWasAddedToTodo extends AggregateChanged
     }
 
     /**
-     * @return UserId
+     * @return TodoId
      */
     public function todoId()
     {

@@ -20,9 +20,9 @@ use Assert\Assertion;
  */
 final class TodoStatus
 {
-    const OPEN = "open";
-    const DONE = "done";
-    const EXPIRED = "expired";
+    const OPEN = 'open';
+    const DONE = 'done';
+    const EXPIRED = 'expired';
 
     /**
      * @var string

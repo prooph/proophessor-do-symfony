@@ -16,7 +16,7 @@ time has passed.
 
 ## Installation
 
-Please refer to the [installation instructions](https://github.com/prooph/proophessor-do/docs/installation.md).
+Please refer to the [installation instructions](https://github.com/prooph/proophessor-do/blob/master/docs/installation.md).
 
 If you have problems with cache files run `sudo chmod 777 var -R`
 
@@ -24,6 +24,13 @@ If you run Symfony proophessor-do app in production mode, you have to compile th
 
 ```php
 $ docker-compose run --rm php php bin/console assetic:dump --env=prod
+```
+
+## Running the app
+
+```php
+docker-compose up -d
+docker-compose run --rm php php bin/console doctrine:migrations:migrate -n
 ```
 
 ## Learning by doing!
