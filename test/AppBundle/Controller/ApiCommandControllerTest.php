@@ -2,37 +2,63 @@
 
 namespace ProophessorTest\AppBundle\Controller;
 
+use Prooph\EventStore\EventStore;
 use Rhumsaa\Uuid\Uuid;
-use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Console\Output\StreamOutput;
 
 class ApiCommandControllerTest extends WebTestCase
 {
-
-     /** @var  Client $client */
-    protected $client;
+    /** @var EventStore */
+    protected $store;
 
     public function setUp()
     {
-        $this->client = self::createClient();
-        $this->runCommand($this->client, "doctrine:database:drop --force -e=test -n");
-        $this->runCommand($this->client, "doctrine:database:create -e=test -n");
-        $this->runCommand($this->client, "doctrine:migrations:migrate -e=test -n");
+        self::bootKernel();
+        $this->store = static::$kernel->getContainer()
+            ->get('prooph_event_store.todo_store')
+        ;
     }
 
-    public function testCommandRegisterUser()
+    public function testCommandRegisterUserReturnsHttpStatus202()
     {
+        $client = $this->addUser(Uuid::uuid4(), 'testUserName'.rand(10000, 1000000000), 'testUserEMail'.rand(10000, 1000000000).'@prooph.com');
+        $this->assertEquals(202, $client->getResponse()->getStatusCode());
+    }
+
+    public function testCommandAddTodoReturnsStatusCode202()
+    {
+        $userId = Uuid::uuid4();
+        $client = $this->addUser($userId, 'testUserName'.rand(10000, 1000000000), 'testUserEMail'.rand(10000, 1000000000).'@prooph.com');
+        $this->assertEquals(202, $client->getResponse()->getStatusCode());
+
         $payload = array(
-            'user_id' => Uuid::uuid4()->toString(),
-            'name' => 'testUserName',
-            'email' => 'testUserEMail@mail.com'
+            'assignee_id' => $userId->toString(),
+            'todo_id' => Uuid::uuid4()->toString(),
+            'text' => 'todoText_'.rand(10000, 1000000000)
         );
 
-        $this->client = static::createClient();
-        $this->client->request(
+        $client = static::createClient();
+        $client->request(
+            'POST',
+            '/api/commands/post-todo',
+            array(),
+            array(),
+            array(),
+            json_encode($payload)
+        );
+
+        $this->assertEquals(202, $client->getResponse()->getStatusCode());
+    }
+
+    protected function addUser(Uuid $id, string $name, string $email){
+        $payload = array(
+            'user_id' => $id->toString(),
+            'name' => $name,
+            'email' => $email
+        );
+
+        $client = static::createClient();
+        $client->request(
             'POST',
             '/api/commands/register-user',
             array(),
@@ -41,36 +67,6 @@ class ApiCommandControllerTest extends WebTestCase
             json_encode($payload)
         );
 
-        $this->assertEquals(202, $this->client->getResponse()->getStatusCode());
-
-        $this->client->request('GET', '/user-list');
-        $this->assertContains($payload['user_id'], $this->client->getResponse()->getContent());
-        $this->assertContains($payload['name'], $this->client->getResponse()->getContent());
-    }
-
-    /**
-     * @param Client $client
-     * @param $command
-     * @return string|StreamOutput
-     */
-    public function runCommand(Client $client, $command)
-    {
-        $application = new Application($client->getKernel());
-        $application->setAutoExit(false);
-
-        $fp = tmpfile();
-        $input = new StringInput($command);
-        $output = new StreamOutput($fp);
-
-        $application->run($input, $output);
-        $application->run($input, $output);
-
-        fseek($fp, 0);
-        $output = '';
-        while (!feof($fp)) {
-            $output = fread($fp, 4096);
-        }
-        fclose($fp);
-        return $output;
+        return $client;
     }
 }
