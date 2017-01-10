@@ -3,6 +3,7 @@
 namespace ProophessorTest\AppBundle\Controller;
 
 use Rhumsaa\Uuid\Uuid;
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Doctrine\Bundle\DoctrineBundle\Command\CreateDatabaseDoctrineCommand;
 use Doctrine\Bundle\DoctrineBundle\Command\DropDatabaseDoctrineCommand;
@@ -17,6 +18,9 @@ abstract class ControllerBaseTestCase extends WebTestCase
 
     /** @var EventStore */
     protected $store;
+
+    /** @var Client */
+    protected static $client;
 
     public function setUp()
     {
@@ -53,17 +57,24 @@ abstract class ControllerBaseTestCase extends WebTestCase
         ));
         $input->setInteractive(false);
         $command->run($input, new ConsoleOutput(ConsoleOutput::VERBOSITY_QUIET));
+
+        self::$client = static::createClient();
     }
 
-    protected function registerUser(Uuid $id, string $name, string $email){
+    /**
+     * @param Uuid $id
+     * @param string $name
+     * @param string $email
+     */
+    protected function registerUser(Uuid $id, string $name, string $email)
+    {
         $payload = array(
             'user_id' => $id->toString(),
             'name' => $name,
             'email' => $email
         );
 
-        $client = static::createClient();
-        $client->request(
+        self::$client->request(
             'POST',
             '/api/commands/register-user',
             array(),
@@ -71,7 +82,28 @@ abstract class ControllerBaseTestCase extends WebTestCase
             array(),
             json_encode($payload)
         );
+    }
 
-        return $client;
+    /**
+     * @param Uuid $assigneeId
+     * @param Uuid $todoId
+     * @param string $todoDescription
+     */
+    protected function postTodo(Uuid $assigneeId, Uuid $todoId, string $todoDescription)
+    {
+        $payload = array(
+            'assignee_id' => $assigneeId->toString(),
+            'todo_id' => $todoId->toString(),
+            'text' => $todoDescription
+        );
+
+        self::$client->request(
+            'POST',
+            '/api/commands/post-todo',
+            array(),
+            array(),
+            array(),
+            json_encode($payload)
+        );
     }
 }
