@@ -20,7 +20,7 @@
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "autoload-dev": {
-        "psr-4": { "ProophTest\\": "test/" }
+        "psr-4": { "ProophessorTest\\": "test/" }
     },
     "require": {
         "php": "^7.0",
