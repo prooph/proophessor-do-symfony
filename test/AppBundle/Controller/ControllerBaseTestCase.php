@@ -20,52 +20,27 @@ abstract class ControllerBaseTestCase extends WebTestCase
     /** @var EventStore */
     protected $store;
 
-    /** @var \AppendIterator */
+    /** @var array */
     protected $recordedEvents;
 
     /** @var Client */
-    protected static $client;
+    protected $client;
 
     public function setUp()
     {
-        self::bootKernel();
-        $application = new Application(static::$kernel);
-
-        $command = new DropDatabaseDoctrineCommand();
-        $application->add($command);
-        $input = new ArrayInput(array(
-            'command' => 'doctrine:database:drop',
-            '--force' => true,
-        ));
-        $command->run($input, new ConsoleOutput(ConsoleOutput::VERBOSITY_QUIET));
-
-        // add the database:create command to the application and run it
-        $command = new CreateDatabaseDoctrineCommand();
-        $application->add($command);
-        $input = new ArrayInput(array(
-            'command' => 'doctrine:database:create',
-        ));
-        $command->run($input, new ConsoleOutput(ConsoleOutput::VERBOSITY_QUIET));
-
-        // add doctrine:migrations:migrate
-        $command = new MigrationsMigrateDoctrineCommand();
-        $application->add($command);
-        $input = new ArrayInput(array(
-            'command' => 'doctrine:migrations:migrate',
-            '--quiet' => true,
-            '--no-interaction' => true
-        ));
-        $input->setInteractive(false);
-        $command->run($input, new ConsoleOutput(ConsoleOutput::VERBOSITY_QUIET));
-
-        self::$client = static::createClient();
-        $this->store = self::$client->getContainer()
+        $this->client = static::createClient();
+        $this->store = $this->client->getContainer()
             ->get('prooph_event_store.todo_store')
         ;
-        $this->store->getActionEventEmitter()->attachListener('commit.post', function(ActionEvent $actionEvent) {
-        $this->recordedEvents = $actionEvent->getParam('recordedEvents', new \ArrayIterator());
-    });
 
+        $this->recordedEvents = [];
+        $this->store->getActionEventEmitter()->attachListener('commit.post',
+            function (ActionEvent $event) {
+                foreach ($event->getParam('recordedEvents', new \ArrayIterator()) as $recordedEvent) {
+                    $this->recordedEvents[] = $recordedEvent;
+                }
+            }
+        );
     }
 
     protected function registerUser(Uuid $id, string $name, string $email)
@@ -76,7 +51,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'email' => $email
         );
 
-        self::$client->request(
+        $this->client->request(
             'POST',
             '/api/commands/register-user',
             array(),
@@ -94,7 +69,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'text' => $todoDescription
         );
 
-        self::$client->request(
+        $this->client->request(
             'POST',
             '/api/commands/post-todo',
             array(),
@@ -111,7 +86,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'status' => $status
         );
 
-        self::$client->request(
+        $this->client->request(
             'POST',
             '/api/commands/mark-todo-as-done',
             array(),
@@ -127,7 +102,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'todo_id' => $todoId->toString()
         );
 
-        self::$client->request(
+        $this->client->request(
             'POST',
             '/api/commands/mark-todo-as-expired',
             array(),
@@ -143,7 +118,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'todo_id' => $todoId->toString(),
         );
 
-        self::$client->request(
+        $this->client->request(
             'POST',
             '/api/commands/reopen-todo',
             array(),
@@ -161,7 +136,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'deadline' => $deadline->format("Y/m/d H:i:s")
         );
 
-        self::$client->request(
+        $this->client->request(
             'POST',
             '/api/commands/add-deadline-to-todo',
             array(),
@@ -179,7 +154,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'reminder' => $reminder->format("Y/m/d H:i:s")
         );
 
-        self::$client->request(
+        $this->client->request(
             'POST',
             '/api/commands/add-reminder-to-todo',
             array(),

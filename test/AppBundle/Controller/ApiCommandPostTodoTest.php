@@ -23,17 +23,13 @@ class ApiCommandPostTodoTest extends ControllerBaseTestCase
 
     public function test_command_post_todo_returns_http_status_202()
     {
-        $this->assertEquals(202, self::$client->getResponse()->getStatusCode());
+        $this->assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
-    public function test_command_post_todo_adds_TodoWasPosted_event_to_eventstream()
+    public function test_command_post_todo_adds_TodoWasPosted_event_to_recordedEvents()
     {
-        $stream = $this->store->load(new StreamName('event'));
-        $this->assertCount(2, $stream->streamEvents());
-        $event = $stream->streamEvents()->current();
-        $this->assertInstanceOf(UserWasRegistered::class, $event);
-        $stream->streamEvents()->next();
-        $event = $stream->streamEvents()->current();
-        $this->assertInstanceOf(TodoWasPosted::class, $event);
+        $this->assertCount(2, $this->recordedEvents);
+        $this->assertInstanceOf(UserWasRegistered::class,$this->recordedEvents[0]);
+        $this->assertInstanceOf(TodoWasPosted::class,$this->recordedEvents[1]);
     }
 }
