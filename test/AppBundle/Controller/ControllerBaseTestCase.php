@@ -139,4 +139,22 @@ abstract class ControllerBaseTestCase extends WebTestCase
             json_encode($payload)
         );
     }
+
+    protected function addDeadlineToTodo(Uuid $userId, Uuid $todoId, \DateTime $deadline)
+    {
+        $payload = array(
+            'todo_id' => $todoId->toString(),
+            'user_id' => $userId->toString(),
+            'deadline' => $deadline->format("Y/m/d H:i:s")
+        );
+
+        self::$client->request(
+            'POST',
+            '/api/commands/add-deadline-to-todo',
+            array(),
+            array(),
+            array(),
+            json_encode($payload)
+        );
+    }
 }
