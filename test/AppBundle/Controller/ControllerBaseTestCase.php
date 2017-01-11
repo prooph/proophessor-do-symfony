@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace ProophessorTest\AppBundle\Controller;
 
@@ -15,7 +16,6 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 abstract class ControllerBaseTestCase extends WebTestCase
 {
-
     /** @var EventStore */
     protected $store;
 
@@ -61,11 +61,6 @@ abstract class ControllerBaseTestCase extends WebTestCase
         self::$client = static::createClient();
     }
 
-    /**
-     * @param Uuid $id
-     * @param string $name
-     * @param string $email
-     */
     protected function registerUser(Uuid $id, string $name, string $email)
     {
         $payload = array(
@@ -84,11 +79,6 @@ abstract class ControllerBaseTestCase extends WebTestCase
         );
     }
 
-    /**
-     * @param Uuid $assigneeId
-     * @param Uuid $todoId
-     * @param string $todoDescription
-     */
     protected function postTodo(Uuid $assigneeId, Uuid $todoId, string $todoDescription)
     {
         $payload = array(
@@ -107,7 +97,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
         );
     }
 
-    protected function markTodoAsDone(Uuid $todoId, string $status = 'done')
+    protected function markTodoAsDone(Uuid $todoId, string $status)
     {
         $payload = array(
             'todo_id' => $todoId->toString(),
@@ -117,6 +107,22 @@ abstract class ControllerBaseTestCase extends WebTestCase
         self::$client->request(
             'POST',
             '/api/commands/mark-todo-as-done',
+            array(),
+            array(),
+            array(),
+            json_encode($payload)
+        );
+    }
+
+    protected function markTodoAsExpired(Uuid $todoId)
+    {
+        $payload = array(
+            'todo_id' => $todoId->toString()
+        );
+
+        self::$client->request(
+            'POST',
+            '/api/commands/mark-todo-as-expired',
             array(),
             array(),
             array(),

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace ProophessorTest\AppBundle\Controller;
 
@@ -9,7 +10,6 @@ use Rhumsaa\Uuid\Uuid;
 
 class ApiCommandPostTodoTest extends ControllerBaseTestCase
 {
-
     public function setUp()
     {
         parent::setUp();
