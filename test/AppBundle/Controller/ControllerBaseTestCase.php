@@ -157,4 +157,22 @@ abstract class ControllerBaseTestCase extends WebTestCase
             json_encode($payload)
         );
     }
+
+    protected function addReminderToTodo(Uuid $userId, Uuid $todoId, \DateTime $reminder)
+    {
+        $payload = array(
+            'todo_id' => $todoId->toString(),
+            'user_id' => $userId->toString(),
+            'reminder' => $reminder->format("Y/m/d H:i:s")
+        );
+
+        self::$client->request(
+            'POST',
+            '/api/commands/add-reminder-to-todo',
+            array(),
+            array(),
+            array(),
+            json_encode($payload)
+        );
+    }
 }
