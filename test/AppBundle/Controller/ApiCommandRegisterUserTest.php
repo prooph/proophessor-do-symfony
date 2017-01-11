@@ -3,7 +3,6 @@
 namespace ProophessorTest\AppBundle\Controller;
 
 use Prooph\EventStore\Stream\StreamName;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 use Rhumsaa\Uuid\Uuid;
 

@@ -29,18 +29,16 @@ class ApiCommandMarkTodoAsDoneTest extends ControllerBaseTestCase
 
         $this->registerUser($this->userId, 'testUserName'.rand(10000, 1000000000), 'testUserEMail'.rand(10000, 1000000000).'@prooph.com');
         $this->postTodo($this->userId, $this->todoId, 'TodoDescription'.rand(10000000, 99999999));
+        $this->markTodoAsDone($this->todoId, 'done');
     }
 
     public function test_command_mark_todo_as_done_returns_http_status_202()
     {
-        $this->markTodoAsDone($this->todoId, 'done');
         $this->assertEquals(202, self::$client->getResponse()->getStatusCode());
     }
 
     public function test_command_mark_todo_as_done_adds_TodoWasMarkedAsDone_event_to_eventstream()
     {
-        $this->markTodoAsDone($this->todoId, 'done');
-
         $stream = $this->store->load(new StreamName('event'));
         $this->assertCount(3, $stream->streamEvents());
         $event = $stream->streamEvents()->current();
