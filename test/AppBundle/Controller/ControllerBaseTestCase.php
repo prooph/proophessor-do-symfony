@@ -106,4 +106,21 @@ abstract class ControllerBaseTestCase extends WebTestCase
             json_encode($payload)
         );
     }
+
+    protected function markTodoAsDone(Uuid $todoId, string $status = 'done')
+    {
+        $payload = array(
+            'todo_id' => $todoId->toString(),
+            'status' => $status
+        );
+
+        self::$client->request(
+            'POST',
+            '/api/commands/mark-todo-as-done',
+            array(),
+            array(),
+            array(),
+            json_encode($payload)
+        );
+    }
 }
