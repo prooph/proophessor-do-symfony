@@ -123,4 +123,20 @@ abstract class ControllerBaseTestCase extends WebTestCase
             json_encode($payload)
         );
     }
+
+    protected function reopenTodo(Uuid $todoId)
+    {
+        $payload = array(
+            'todo_id' => $todoId->toString(),
+        );
+
+        self::$client->request(
+            'POST',
+            '/api/commands/reopen-todo',
+            array(),
+            array(),
+            array(),
+            json_encode($payload)
+        );
+    }
 }
