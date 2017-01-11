@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ProophessorTest\AppBundle\Controller;
 
+use Prooph\Common\Event\ActionEvent;
 use Rhumsaa\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -19,16 +20,15 @@ abstract class ControllerBaseTestCase extends WebTestCase
     /** @var EventStore */
     protected $store;
 
+    /** @var \AppendIterator */
+    protected $recordedEvents;
+
     /** @var Client */
     protected static $client;
 
     public function setUp()
     {
         self::bootKernel();
-        $this->store = static::$kernel->getContainer()
-            ->get('prooph_event_store.todo_store')
-        ;
-
         $application = new Application(static::$kernel);
 
         $command = new DropDatabaseDoctrineCommand();
@@ -59,6 +59,13 @@ abstract class ControllerBaseTestCase extends WebTestCase
         $command->run($input, new ConsoleOutput(ConsoleOutput::VERBOSITY_QUIET));
 
         self::$client = static::createClient();
+        $this->store = self::$client->getContainer()
+            ->get('prooph_event_store.todo_store')
+        ;
+        $this->store->getActionEventEmitter()->attachListener('commit.post', function(ActionEvent $actionEvent) {
+        $this->recordedEvents = $actionEvent->getParam('recordedEvents', new \ArrayIterator());
+    });
+
     }
 
     protected function registerUser(Uuid $id, string $name, string $email)
