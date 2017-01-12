@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ProophessorTest\AppBundle\Controller;
 
-use Prooph\EventStore\Stream\StreamName;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
@@ -21,28 +21,20 @@ class ApiCommandReopenTodoTest extends ControllerBaseTestCase
         $this->registerUser($userId, 'testUserName'.rand(10000, 1000000000), 'testUserEMail'.rand(10000, 1000000000).'@prooph.com');
         $this->postTodo($userId, $todoId, 'TodoDescription'.rand(10000000, 99999999));
         $this->markTodoAsDone($todoId, 'done');
-        $this->reopenTodo($todoId);
+        $this->client = $this->reopenTodo($todoId);
     }
 
     public function test_command_reopen_todo_returns_http_status_202()
     {
-        $this->assertEquals(202, self::$client->getResponse()->getStatusCode());
+        $this->assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
-    public function test_command_reopen_todo_adds_TodoWasMarkedAsDone_event_to_eventstream()
+    public function test_command_post_todo_emits_TodoWasReopened_event()
     {
-        $stream = $this->store->load(new StreamName('event'));
-        $this->assertCount(4, $stream->streamEvents());
-        $event = $stream->streamEvents()->current();
-        $this->assertInstanceOf(UserWasRegistered::class, $event);
-        $stream->streamEvents()->next();
-        $event = $stream->streamEvents()->current();
-        $this->assertInstanceOf(TodoWasPosted::class, $event);
-        $stream->streamEvents()->next();
-        $event = $stream->streamEvents()->current();
-        $this->assertInstanceOf(TodoWasMarkedAsDone::class, $event);
-        $stream->streamEvents()->next();
-        $event = $stream->streamEvents()->current();
-        $this->assertInstanceOf(TodoWasReopened::class, $event);
+        $this->assertCount(4, $this->recordedEvents);
+        $this->assertInstanceOf(UserWasRegistered::class,$this->recordedEvents[0]);
+        $this->assertInstanceOf(TodoWasPosted::class,$this->recordedEvents[1]);
+        $this->assertInstanceOf(TodoWasMarkedAsDone::class,$this->recordedEvents[2]);
+        $this->assertInstanceOf(TodoWasReopened::class,$this->recordedEvents[3]);
     }
 }

@@ -7,41 +7,21 @@ use Prooph\Common\Event\ActionEvent;
 use Rhumsaa\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Doctrine\Bundle\DoctrineBundle\Command\CreateDatabaseDoctrineCommand;
-use Doctrine\Bundle\DoctrineBundle\Command\DropDatabaseDoctrineCommand;
-use Doctrine\Bundle\MigrationsBundle\Command\MigrationsMigrateDoctrineCommand;
 use Prooph\EventStore\EventStore;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 abstract class ControllerBaseTestCase extends WebTestCase
 {
+    /** @var  Client  */
+    protected $client;
+
     /** @var EventStore */
     protected $store;
 
     /** @var array */
-    protected $recordedEvents;
-
-    /** @var Client */
-    protected $client;
+    protected $recordedEvents = [];
 
     public function setUp()
-    {
-        $this->client = static::createClient();
-        $this->store = $this->client->getContainer()
-            ->get('prooph_event_store.todo_store')
-        ;
-
-        $this->recordedEvents = [];
-        $this->store->getActionEventEmitter()->attachListener('commit.post',
-            function (ActionEvent $event) {
-                foreach ($event->getParam('recordedEvents', new \ArrayIterator()) as $recordedEvent) {
-                    $this->recordedEvents[] = $recordedEvent;
-                }
-            }
-        );
-    }
+    {}
 
     protected function registerUser(Uuid $id, string $name, string $email)
     {
@@ -51,14 +31,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'email' => $email
         );
 
-        $this->client->request(
-            'POST',
-            '/api/commands/register-user',
-            array(),
-            array(),
-            array(),
-            json_encode($payload)
-        );
+        return $this->request('POST', '/api/commands/register-user', $payload);
     }
 
     protected function postTodo(Uuid $assigneeId, Uuid $todoId, string $todoDescription)
@@ -69,14 +42,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'text' => $todoDescription
         );
 
-        $this->client->request(
-            'POST',
-            '/api/commands/post-todo',
-            array(),
-            array(),
-            array(),
-            json_encode($payload)
-        );
+        return $this->request('POST', '/api/commands/post-todo', $payload);
     }
 
     protected function markTodoAsDone(Uuid $todoId, string $status)
@@ -86,14 +52,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'status' => $status
         );
 
-        $this->client->request(
-            'POST',
-            '/api/commands/mark-todo-as-done',
-            array(),
-            array(),
-            array(),
-            json_encode($payload)
-        );
+        return $this->request('POST', '/api/commands/mark-todo-as-done', $payload);
     }
 
     protected function markTodoAsExpired(Uuid $todoId)
@@ -102,14 +61,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'todo_id' => $todoId->toString()
         );
 
-        $this->client->request(
-            'POST',
-            '/api/commands/mark-todo-as-expired',
-            array(),
-            array(),
-            array(),
-            json_encode($payload)
-        );
+        return $this->request('POST', '/api/commands/mark-todo-as-expired', $payload);
     }
 
     protected function reopenTodo(Uuid $todoId)
@@ -118,14 +70,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'todo_id' => $todoId->toString(),
         );
 
-        $this->client->request(
-            'POST',
-            '/api/commands/reopen-todo',
-            array(),
-            array(),
-            array(),
-            json_encode($payload)
-        );
+        return $this->request('POST', '/api/commands/reopen-todo', $payload);
     }
 
     protected function addDeadlineToTodo(Uuid $userId, Uuid $todoId, \DateTime $deadline)
@@ -136,14 +81,7 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'deadline' => $deadline->format("Y/m/d H:i:s")
         );
 
-        $this->client->request(
-            'POST',
-            '/api/commands/add-deadline-to-todo',
-            array(),
-            array(),
-            array(),
-            json_encode($payload)
-        );
+        return $this->request('POST', '/api/commands/add-deadline-to-todo', $payload);
     }
 
     protected function addReminderToTodo(Uuid $userId, Uuid $todoId, \DateTime $reminder)
@@ -154,13 +92,33 @@ abstract class ControllerBaseTestCase extends WebTestCase
             'reminder' => $reminder->format("Y/m/d H:i:s")
         );
 
-        $this->client->request(
-            'POST',
-            '/api/commands/add-reminder-to-todo',
+        return $this->request('POST', '/api/commands/add-reminder-to-todo', $payload);
+    }
+
+    private function request(string $type, string $url, array $payload){
+        $client = $this->client();
+        $client->request(
+            $type,
+            $url,
             array(),
             array(),
             array(),
             json_encode($payload)
         );
+        return $client;
+    }
+
+    private function client(){
+        $client = static::createClient();
+        $this->store = $client->getContainer()->get('prooph_event_store.todo_store');
+        $this->store->getActionEventEmitter()->attachListener('commit.post',
+            function (ActionEvent $event) {
+                foreach ($event->getParam('recordedEvents', new \ArrayIterator()) as $recordedEvent) {
+                    $this->recordedEvents[] = $recordedEvent;
+                }
+            }
+        );
+
+        return $client;
     }
 }

@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ProophessorTest\AppBundle\Controller;
 
-use Prooph\EventStore\Stream\StreamName;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
@@ -22,25 +22,19 @@ class ApiCommandAddReminderToTodoTest extends ControllerBaseTestCase
 
         $this->registerUser($userId, 'testUserName'.rand(10000, 1000000000), 'testUserEMail'.rand(10000, 1000000000).'@prooph.com');
         $this->postTodo($userId, $todoId, $todoDescription);
-        $this->addReminderToTodo($userId, $todoId, $reminder);
+        $this->client = $this->addReminderToTodo($userId, $todoId, $reminder);
     }
 
     public function test_command_add_reminder_to_todo_returns_http_status_202()
     {
-        $this->assertEquals(202, self::$client->getResponse()->getStatusCode());
+        $this->assertEquals(202, $this->client->getResponse()->getStatusCode());
     }
 
-    public function test_command_add_reminder_to_todo_adds_ReminderWasAddedToTodo_event_to_eventstream()
+    public function test_command_post_todo_emits_ReminderWasAddedToTodo_event()
     {
-        $stream = $this->store->load(new StreamName('event'));
-        $this->assertCount(3, $stream->streamEvents());
-        $event = $stream->streamEvents()->current();
-        $this->assertInstanceOf(UserWasRegistered::class, $event);
-        $stream->streamEvents()->next();
-        $event = $stream->streamEvents()->current();
-        $this->assertInstanceOf(TodoWasPosted::class, $event);
-        $stream->streamEvents()->next();
-        $event = $stream->streamEvents()->current();
-        $this->assertInstanceOf(ReminderWasAddedToTodo::class, $event);
+        $this->assertCount(3, $this->recordedEvents);
+        $this->assertInstanceOf(UserWasRegistered::class,$this->recordedEvents[0]);
+        $this->assertInstanceOf(TodoWasPosted::class,$this->recordedEvents[1]);
+        $this->assertInstanceOf(ReminderWasAddedToTodo::class,$this->recordedEvents[2]);
     }
 }
