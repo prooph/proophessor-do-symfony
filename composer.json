@@ -3,6 +3,26 @@
     "license": "MIT",
     "type": "project",
     "description": "Symfony CQRS + Event Sourcing sample app for prooph components",
+    "homepage": "http://getprooph.org/",
+    "authors": [
+        {
+            "name": "Alexander Miertsch",
+            "email": "contact@prooph.de",
+            "homepage": "http://www.prooph.de"
+        },
+        {
+            "name": "Sascha-Oliver Prolic",
+            "email": "saschaprolic@googlemail.com"
+        },
+        {
+            "name": "Malte Blättermann",
+            "email": "malte.blaettermann@googlemail.com"
+        },
+        {
+            "name": "Ralf Junghanns",
+            "email": "ralf.junghanns@gmail.com"
+        }
+    ],
     "keywords": [
         "example",
         "prooph",
