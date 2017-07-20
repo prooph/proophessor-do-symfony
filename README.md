@@ -67,8 +67,8 @@ A successfully merged pull request will add you to the HALL OF FAME!
 
 ## Tutorials
 
-- [Replay History](https://github.com/prooph/proophessor-do/docs/tutorials/replay_history.md)
-- [Take Snapshots](https://github.com/prooph/proophessor-do/docs/tutorials/take_snapshots.md)
+- [Replay History](https://github.com/prooph/proophessor-do/docs/master/docs/tutorials/replay_history.md)
+- [Take Snapshots](https://github.com/prooph/proophessor-do/docs/master/docs/tutorials/take_snapshots.md)
 
 ## Technology Stack
 
