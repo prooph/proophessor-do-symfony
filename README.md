@@ -16,7 +16,7 @@ time has passed.
 
 ## Installation
 
-Please refer to the [installation instructions](https://github.com/prooph/proophessor-do/blob/master/docs/installation.md).
+Please refer to the [installation instructions](https://github.com/prooph/proophessor-do/blob/master/docs/installation/index.md).
 
 If you have problems with cache files run `sudo chmod 777 var -R`
 
