@@ -59,3 +59,9 @@ services:
         class:        Prooph\AppBundle\Twig\RiotTag
         tags:
              - { name: 'twig.extension' }
+
+    proophdo.todo_notify_event_listener:
+        class: Prooph\AppBundle\EventListener\TodoNotifyListener
+        arguments: ['@prooph_service_bus.todo_command_bus', '@proophdo.todo_projection.todo_finder','@logger']
+        tags:
+             - { name: kernel.event_subscriber }
