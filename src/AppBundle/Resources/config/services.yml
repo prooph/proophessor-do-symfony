@@ -65,3 +65,7 @@ services:
         arguments: ['@prooph_service_bus.todo_command_bus', '@proophdo.todo_projection.todo_finder','@logger']
         tags:
              - { name: kernel.event_subscriber }
+
+    proophdo.process_manager.send_todo_deadline_mailer:
+        class: Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber
+        arguments: ['@proophdo.todo_projection.user_finder','@proophdo.todo_projection.todo_finder','@mailer','@logger']

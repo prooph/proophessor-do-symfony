@@ -52,7 +52,7 @@ prooph_service_bus:
           'Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired':
             - 'proophdo.todo_projection.todo_projector'
             - 'proophdo.todo_projection.user_projector'
-            - 'Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber'
+            - 'proophdo.process_manager.send_todo_deadline_mailer'
 
           'Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired':
             - 'proophdo.todo_projection.todo_projector'

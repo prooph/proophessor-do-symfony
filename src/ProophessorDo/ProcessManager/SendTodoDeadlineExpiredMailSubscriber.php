@@ -1,9 +1,11 @@
 <?php
+
 namespace Prooph\ProophessorDo\ProcessManager;
 
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
+use Psr\Log\LoggerInterface;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\TransportInterface;
 
@@ -31,19 +33,28 @@ final class SendTodoDeadlineExpiredMailSubscriber
     private $mailer;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * SendTodoDeadlineExpiredMailSubscriber constructor.
      * @param UserFinder $userFinder
      * @param TodoFinder $todoFinder
      * @param TransportInterface $mailer
+     * @param LoggerInterface $logger
      */
     public function __construct(
         UserFinder $userFinder,
         TodoFinder $todoFinder,
-        TransportInterface $mailer
-    ) {
+        TransportInterface $mailer,
+        LoggerInterface $logger
+    )
+    {
         $this->userFinder = $userFinder;
         $this->todoFinder = $todoFinder;
         $this->mailer = $mailer;
+        $this->logger = $logger;
     }
 
     /**
@@ -70,5 +81,6 @@ final class SendTodoDeadlineExpiredMailSubscriber
         $mail->setSubject('Proophessor-do Todo expired');
 
         $this->mailer->send($mail);
+        $this->logger->info('mail was sent to ' . $user->email);
     }
 }
