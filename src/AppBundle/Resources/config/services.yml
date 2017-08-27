@@ -59,6 +59,10 @@ services:
         class: Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber
         arguments: ['@proophdo.todo_projection.user_finder','@proophdo.todo_projection.todo_finder', '@mailer', '@logger' ]
 
+    proophdo.send_todo_reminder_mail_subscriber:
+        class: Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailSubscriber
+        arguments: ['@proophdo.todo_projection.user_finder','@proophdo.todo_projection.todo_finder', '@mailer', '@logger' ]
+
     proophdo.twig.extension.riot_tag:
         class:        Prooph\AppBundle\Twig\RiotTag
         tags:

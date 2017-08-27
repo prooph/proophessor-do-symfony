@@ -11,7 +11,7 @@ use Psr\Log\LoggerInterface;
  * Class SendTodoDeadlineExpiredMailSubscriber
  *
  * @package Prooph\ProophessorDo\App\Mail
- * @author Michał Żukowski <michal@durooil.com
+ * @author Michał Żukowski <michal@durooil.com>, Patrick Blom <info@patrick-blom.de>
  */
 final class SendTodoDeadlineExpiredMailSubscriber
 {
