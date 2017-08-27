@@ -49,11 +49,11 @@ final class TodoNotifyListener implements EventSubscriberInterface
         $expiredTodos = $this->todoFinder->findOpenWithPastTheirDeadline();
 
         if (0 === count($expiredTodos)) {
-            $this->logger->info('no expired todos found, exit process');
+            $this->logger->debug('no expired todos found, exit process');
             return;
         }
 
-        $this->logger->info(
+        $this->logger->debug(
             sprintf(
                 '%s expired todos found, start dispatching commands',
                 count($expiredTodos)
@@ -63,7 +63,7 @@ final class TodoNotifyListener implements EventSubscriberInterface
         /** @var \stdClass $todo */
         foreach ($expiredTodos as $todo) {
             if (isset($todo->id)) {
-                $this->logger->info(
+                $this->logger->debug(
                     sprintf(
                         'dispatching the MarkTodoAsExpired command for todo %s with topic %s',
                         $todo->id,

@@ -6,8 +6,6 @@ use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 use Psr\Log\LoggerInterface;
-use Zend\Mail\Message;
-use Zend\Mail\Transport\TransportInterface;
 
 /**
  * Class SendTodoDeadlineExpiredMailSubscriber
@@ -28,7 +26,7 @@ final class SendTodoDeadlineExpiredMailSubscriber
     private $todoFinder;
 
     /**
-     * @var TransportInterface
+     * @var \Swift_Mailer
      */
     private $mailer;
 
@@ -41,15 +39,10 @@ final class SendTodoDeadlineExpiredMailSubscriber
      * SendTodoDeadlineExpiredMailSubscriber constructor.
      * @param UserFinder $userFinder
      * @param TodoFinder $todoFinder
-     * @param TransportInterface $mailer
+     * @param \Swift_Mailer $mailer
      * @param LoggerInterface $logger
      */
-    public function __construct(
-        UserFinder $userFinder,
-        TodoFinder $todoFinder,
-        TransportInterface $mailer,
-        LoggerInterface $logger
-    )
+    public function __construct(UserFinder $userFinder, TodoFinder $todoFinder, \Swift_Mailer $mailer, LoggerInterface $logger)
     {
         $this->userFinder = $userFinder;
         $this->todoFinder = $todoFinder;
@@ -61,26 +54,25 @@ final class SendTodoDeadlineExpiredMailSubscriber
      * @param TodoWasMarkedAsExpired $event
      * @return void
      */
-    public function __invoke(TodoWasMarkedAsExpired $event)
+    public function onTodoWasMarkedAsExpired(TodoWasMarkedAsExpired $event)
     {
         $todo = $this->todoFinder->findById($event->todoId()->toString());
         $user = $this->userFinder->findById($todo->assignee_id);
-
-        $message = sprintf(
+        $messageBody = sprintf(
             'Hi %s! Just a heads up: your todo `%s` has expired on %s.',
             $user->name,
             $todo->text,
             $todo->deadline
         );
 
-        $mail = new Message();
-        $mail->setBody($message);
-        $mail->setEncoding('utf-8');
-        $mail->setFrom('reminder@getprooph.org', 'Proophessor-do');
-        $mail->addTo($user->email, $user->name);
-        $mail->setSubject('Proophessor-do Todo expired');
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Proophessor-do Todo expired')
+            ->setFrom('reminder@getprooph.org', 'Proophessor-do')
+            ->setTo($user->email, $user->name)
+            ->setBody($messageBody);
 
-        $this->mailer->send($mail);
-        $this->logger->info('mail was sent to ' . $user->email);
+        $this->mailer->send($message);
+
+        $this->logger->debug('mail was sent to ' . $user->email);
     }
 }
