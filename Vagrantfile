@@ -37,7 +37,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.provision :docker
     config.vm.provision :docker_compose, yml: "/vagrant/docker-compose.yml", rebuild: false, run: "always"
-    config.vm.provision "shell", inline: "cd /vagrant && docker run --rm -it --volume $(pwd):/app prooph/composer:7.0 install -o --prefer-dist"
-    config.vm.provision "shell", inline: "cd /vagrant && docker run --rm -it --volume $(pwd):/app prooph/composer:7.0 require prooph/event-store-doctrine-adapter -o --prefer-dist"
-    config.vm.provision "shell", inline: "cd /vagrant && docker-compose run --rm php sh bin/setup_mysql.sh"
+    config.vm.provision "shell", inline: "cd /vagrant && docker run --rm -t --volume $(pwd):/app prooph/composer:7.0 install -o --prefer-dist"
+    config.vm.provision "shell", inline: "cd /vagrant && docker run --rm -t --volume $(pwd):/app prooph/composer:7.0 require prooph/event-store-doctrine-adapter -o --prefer-dist"
+    config.vm.provision "shell", inline: "cd /vagrant && docker-compose run --rm php php bin/console assetic:dump --env=prod"
+    config.vm.provision "shell", inline: "cd /vagrant && docker-compose run --rm php php bin/console doctrine:migrations:migrate -n"    
 end
