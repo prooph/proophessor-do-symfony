@@ -55,7 +55,21 @@ services:
         class: Prooph\ProophessorDo\Model\Todo\Handler\RemindTodoAssigneeHandler
         arguments: ['@todo_list']
 
+    proophdo.send_todo_deadline_expired_mail_subscriber:
+        class: Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber
+        arguments: ['@proophdo.todo_projection.user_finder','@proophdo.todo_projection.todo_finder', '@mailer', '@logger' ]
+
+    proophdo.send_todo_reminder_mail_subscriber:
+        class: Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailSubscriber
+        arguments: ['@proophdo.todo_projection.user_finder','@proophdo.todo_projection.todo_finder', '@mailer', '@logger' ]
+
     proophdo.twig.extension.riot_tag:
         class:        Prooph\AppBundle\Twig\RiotTag
         tags:
              - { name: 'twig.extension' }
+
+    proophdo.todo_notify_event_listener:
+        class: Prooph\AppBundle\EventListener\TodoNotifyListener
+        arguments: ['@prooph_service_bus.todo_command_bus', '@proophdo.todo_projection.todo_finder','@logger']
+        tags:
+             - { name: kernel.event_subscriber }

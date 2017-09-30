@@ -13,6 +13,7 @@ namespace Prooph\ProophessorDo\Projection\Todo;
 use Doctrine\DBAL\Connection;
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
@@ -114,6 +115,7 @@ final class TodoProjector
             Table::TODO,
             [
                 'reminder' => $event->reminder()->toString(),
+                'reminded' => false
             ],
             [
                 'id' => $event->todoId()->toString(),
@@ -144,6 +146,21 @@ final class TodoProjector
         $this->connection->update(Table::TODO,
             [
                 'status' => $event->newStatus()->toString()
+            ],
+            [
+                'id' => $event->todoId()->toString()
+            ]
+        );
+    }
+
+    /**
+     * @param TodoAssigneeWasReminded $event
+     */
+    public function onTodoAssigneeWasReminded(TodoAssigneeWasReminded $event)
+    {
+        $this->connection->update(Table::TODO,
+            [
+                'reminded' => true
             ],
             [
                 'id' => $event->todoId()->toString()

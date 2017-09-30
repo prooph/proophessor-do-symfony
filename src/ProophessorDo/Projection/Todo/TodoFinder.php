@@ -8,6 +8,7 @@
  *
  * Date: 5/4/15 - 8:47 PM
  */
+
 namespace Prooph\ProophessorDo\Projection\Todo;
 
 use Doctrine\DBAL\Connection;
@@ -85,7 +86,13 @@ class TodoFinder
     {
         $stmt = $this
             ->connection
-            ->prepare(sprintf('SELECT * FROM %s where reminder < NOW() AND reminded = 0', Table::TODO));
+            ->prepare(
+                sprintf(
+                    "SELECT * FROM %s where reminder < '%s' AND reminded = 0",
+                    Table::TODO,
+                    (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))->format(\DateTime::ATOM)
+                )
+            );
         $stmt->execute();
 
         return $stmt->fetchAll();
@@ -98,8 +105,9 @@ class TodoFinder
     {
         return $this->connection->fetchAll(
             sprintf(
-                "SELECT * FROM %s WHERE status = :status AND deadline < CONVERT_TZ(NOW(), @@session.time_zone, '+00:00')",
-                Table::TODO
+                "SELECT * FROM %s WHERE status = :status AND deadline < '%s'",
+                Table::TODO,
+                (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))->format(\DateTime::ATOM)
             ),
             ['status' => TodoStatus::OPEN]
         );

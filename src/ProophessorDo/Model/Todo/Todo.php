@@ -343,6 +343,7 @@ final class Todo extends AggregateRoot
     protected function whenReminderWasAddedToTodo(ReminderWasAddedToTodo $event)
     {
         $this->reminder = $event->reminder();
+        $this->reminded = false;
     }
 
     /**
@@ -352,6 +353,7 @@ final class Todo extends AggregateRoot
     protected function whenTodoAssigneeWasReminded(TodoAssigneeWasReminded $event)
     {
         $this->reminder = $event->reminder();
+        $this->reminded = true;
     }
 
     /**
