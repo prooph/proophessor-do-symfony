@@ -51,7 +51,6 @@
         "prooph/event-store-bus-bridge": "^3.0",
         "prooph/service-bus-symfony-bundle": "dev-master",
         "symfony/asset": "^3.3",
-        "symfony/config": "^3.3",
         "symfony/console": "^3.3",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^3.3",
