@@ -1,25 +1,22 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 2/16/16
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo\Event;
 
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
+use Prooph\ProophessorDo\Model\User\UserId;
 
-/**
- * Class TodoWasReopened
- *
- * @package Prooph\ProophessorDo\Model\Todo\Event
- * @author Bas Kamer <bas@bushbaby.nl>
- */
 final class TodoWasReopened extends AggregateChanged
 {
     /**
@@ -33,28 +30,26 @@ final class TodoWasReopened extends AggregateChanged
     private $status;
 
     /**
-     * @param TodoId $todoId
-     * @param TodoStatus $status
-     * @return TodoWasReopened
+     * @var UserId
      */
-    public static function withStatus(TodoId $todoId, TodoStatus $status)
+    private $assigneeId;
+
+    public static function withStatus(TodoId $todoId, TodoStatus $status, UserId $assigneeId): TodoWasReopened
     {
-        $event = self::occur(
-            $todoId->toString(), [
-                'status' => $status->toString()
-            ]
-        );
+        /** @var self $event */
+        $event = self::occur($todoId->toString(), [
+            'status' => $status->toString(),
+            'assignee_id' => $assigneeId->toString(),
+        ]);
 
         $event->todoId = $todoId;
         $event->status = $status;
+        $event->assigneeId = $assigneeId;
 
         return $event;
     }
 
-    /**
-     * @return TodoId
-     */
-    public function todoId()
+    public function todoId(): TodoId
     {
         if (null === $this->todoId) {
             $this->todoId = TodoId::fromString($this->aggregateId());
@@ -63,15 +58,21 @@ final class TodoWasReopened extends AggregateChanged
         return $this->todoId;
     }
 
-    /**
-     * @return TodoStatus
-     */
-    public function status()
+    public function status(): TodoStatus
     {
         if (null === $this->status) {
-            $this->status = TodoStatus::fromString($this->payload['status']);
+            $this->status = TodoStatus::byName($this->payload['status']);
         }
 
         return $this->status;
+    }
+
+    public function assigneeId(): UserId
+    {
+        if (null === $this->assigneeId) {
+            $this->assigneeId = UserId::fromString($this->payload['assignee_id']);
+        }
+
+        return $this->assigneeId;
     }
 }

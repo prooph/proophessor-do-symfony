@@ -1,33 +1,26 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 2/16/16
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo\Exception;
 
 use Prooph\ProophessorDo\Model\Todo\Todo;
 
-/**
- * Class CannotReopenTodo
- *
- * @package Prooph\ProophessorDo\Model\Todo\Exception
- * @author Bas Kamer <bas@bushbaby.nl>
- */
 final class CannotReopenTodo extends \RuntimeException
 {
-    /**
-     * @param Todo $todo
-     * @return CannotReopenTodo
-     */
-    public static function notMarkedDone(Todo $todo)
+    public static function notMarkedDone(Todo $todo): CannotReopenTodo
     {
-        return new self(
-            sprintf('Tried to reopen status of Todo %s. But Todo is not marked as done!', $todo->todoId()->toString())
-        );
+        return new self(sprintf(
+            'Tried to reopen status of Todo %s. But Todo is not marked as done!',
+            $todo->todoId()->toString()
+        ));
     }
 }

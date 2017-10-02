@@ -1,0 +1,37 @@
+prooph_event_store:
+    projection_managers:
+        todo_projection_manager:
+            event_store: Prooph\EventStore\Pdo\MySqlEventStore # event store
+            connection: 'doctrine.pdo.connection'
+            projections:
+                user_projection:
+                    read_model: Prooph\ProophessorDo\Projection\User\UserReadModel
+                    projection: Prooph\ProophessorDo\Projection\User\UserProjection
+                todo_projection:
+                    read_model: Prooph\ProophessorDo\Projection\Todo\TodoReadModel
+                    projection: Prooph\ProophessorDo\Projection\Todo\TodoProjection
+                todo_reminder_projection:
+                    read_model: Prooph\ProophessorDo\Projection\Todo\TodoReminderReadModel
+                    projection: Prooph\ProophessorDo\Projection\Todo\TodoReminderProjection
+
+services:
+    proophdo.todo_projection.user_finder:
+        class: Prooph\ProophessorDo\Projection\User\UserFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    proophdo.todo_projection.todo_finder:
+        class: Prooph\ProophessorDo\Projection\Todo\TodoFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    proophdo.todo_projection.todo_reminder_finder:
+        class: Prooph\ProophessorDo\Projection\Todo\TodoReminderFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    Prooph\ProophessorDo\Projection\User\UserReadModel:
+        arguments: ['@doctrine.dbal.default_connection']
+
+    Prooph\ProophessorDo\Projection\Todo\TodoReadModel:
+        arguments: ['@doctrine.dbal.default_connection']
+
+    Prooph\ProophessorDo\Projection\Todo\TodoReminderReadModel:
+        arguments: ['@doctrine.dbal.default_connection']

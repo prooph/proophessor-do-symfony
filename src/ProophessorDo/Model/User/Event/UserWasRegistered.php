@@ -1,26 +1,22 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 5/2/15 - 6:46 PM
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\User\Event;
 
-use Assert\Assertion;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\User\EmailAddress;
 use Prooph\ProophessorDo\Model\User\UserId;
+use Prooph\ProophessorDo\Model\User\UserName;
 
-/**
- * Class UserWasRegistered
- *
- * @package Prooph\ProophessorDo\Model\User\Event
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class UserWasRegistered extends AggregateChanged
 {
     /**
@@ -29,7 +25,7 @@ final class UserWasRegistered extends AggregateChanged
     private $userId;
 
     /**
-     * @var string
+     * @var UserName
      */
     private $username;
 
@@ -38,23 +34,13 @@ final class UserWasRegistered extends AggregateChanged
      */
     private $emailAddress;
 
-    /**
-     * @param UserId $userId
-     * @param string $name
-     * @param EmailAddress $emailAddress
-     * @return UserWasRegistered
-     */
-    public static function withData(UserId $userId, $name, EmailAddress $emailAddress)
+    public static function withData(UserId $userId, UserName $name, EmailAddress $emailAddress): UserWasRegistered
     {
-        Assertion::string($name);
-
-        $event = self::occur(
-            $userId->toString(),
-            [
-                'name' => $name,
-                'email' => $emailAddress->toString(),
-            ]
-        );
+        /** @var self $event */
+        $event = self::occur($userId->toString(), [
+            'name' => $name->toString(),
+            'email' => $emailAddress->toString(),
+        ]);
 
         $event->userId = $userId;
         $event->username = $name;
@@ -63,37 +49,30 @@ final class UserWasRegistered extends AggregateChanged
         return $event;
     }
 
-    /**
-     * @return UserId
-     */
-    public function userId()
+    public function userId(): UserId
     {
-        if ($this->userId === null) {
+        if (null === $this->userId) {
             $this->userId = UserId::fromString($this->aggregateId());
         }
 
         return $this->userId;
     }
 
-    /**
-     * @return string
-     */
-    public function name()
+    public function name(): UserName
     {
-        if ($this->username === null) {
-            $this->username = $this->payload['name'];
+        if (null === $this->username) {
+            $this->username = UserName::fromString($this->payload['name']);
         }
+
         return $this->username;
     }
 
-    /**
-     * @return EmailAddress
-     */
-    public function emailAddress()
+    public function emailAddress(): EmailAddress
     {
-        if ($this->emailAddress === null) {
+        if (null === $this->emailAddress) {
             $this->emailAddress = EmailAddress::fromString($this->payload['email']);
         }
+
         return $this->emailAddress;
     }
 }

@@ -1,19 +1,11 @@
-/app/config/parameters.yml
-/build/
-/phpunit.xml
-/var/*
-!/var/cache
-/var/cache/*
-!var/cache/.gitkeep
-!/var/logs
-/var/logs/*
-!var/logs/.gitkeep
-!/var/sessions
-/var/sessions/*
-!var/sessions/.gitkeep
-!var/SymfonyRequirements.php
+
+###> symfony/framework-bundle ###
+.env
+/public/bundles/
+/var/
 /vendor/
-/web/bundles/
-/web/css
-/web/js
+###< symfony/framework-bundle ###
 .idea
+.php_cs.cache
+.project
+.settings
