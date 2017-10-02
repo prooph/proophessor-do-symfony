@@ -1,38 +1,85 @@
-version: "2"
+version: '2'
 services:
-  nginx:
-    image: prooph/nginx:www
-    ports:
-        - 8080:80
-        - 443:443
-        - 10081:10081
-        - 10082:10082
-    links:
-      - php:php
-    volumes:
-      - .:/var/www:ro
-      - ./env/docker/nginx/config/sites-enabled:/etc/nginx/sites-enabled:ro
 
-  php:
-    image: prooph/php:7.0-fpm-xdebug
-    links:
-      - mariadb:mariadb
-      - mongodb:mongodb
-    volumes:
-      - .:/var/www:rw
-    user: "1000"
-
-  mariadb:
-    image: mariadb
+  mysql:
+    image: mysql
     ports:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=dev
       - MYSQL_USER=dev
       - MYSQL_PASSWORD=dev
-      - MYSQL_DATABASE=proophessor
+      - MYSQL_DATABASE=todo
+    volumes:
+      - ./vendor/prooph/pdo-event-store/scripts/mysql:/docker-entrypoint-initdb.d
 
-  mongodb:
-      image: mongo
-      ports:
-        - 27017:27017
+  nginx:
+    image: prooph/nginx:www
+    ports:
+      - 8080:80
+      - 443:443
+      - 10081:10081
+      - 10082:10082
+    links:
+      - php:php
+    volumes:
+      - .:/var/www
+
+  php:
+    image: prooph/php:7.1-fpm
+    volumes:
+      - .:/var/www
+    depends_on:
+      - mysql
+    environment:
+      - PROOPH_ENV=development
+
+  projection_todo:
+    image: prooph/php:7.1-cli
+    entrypoint:
+      - /app/.docker/wait_for_sql.sh
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+    command: php bin/console event-store:projection:run todo_projection
+
+  projection_todo_reminder:
+    image: prooph/php:7.1-cli
+    entrypoint: /app/.docker/wait_for_sql.sh
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+    command: php bin/console event-store:projection:run todo_reminder_projection
+
+  projection_user:
+    image: prooph/php:7.1-cli
+    entrypoint: /app/.docker/wait_for_sql.sh
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+    command: php bin/console event-store:projection:run user_projection
+
+# Uncomment when using snapshotters
+# @TODO: Implement snapshot projections, see proophessor-do
+#  snapshotter_todo:
+#    image: prooph/php:7.1-cli
+#    entrypoint: /app/.docker/wait_for_sql.sh
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - mysql
+#      - mongodb
+#    command: php /app/bin/todo_snapshotter.php
+#
+#  snapshotter_user:
+#    image: prooph/php:7.1-cli
+#    entrypoint: /app/.docker/wait_for_sql.sh
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - mysql
+#      - mongodb
+#    command: php /app/bin/user_snapshotter.php

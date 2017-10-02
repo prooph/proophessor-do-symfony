@@ -1,0 +1,48 @@
+page::home:
+    path: /
+    defaults: { _controller: App\Controller\DefaultController::indexAction }
+
+page::user-list:
+    path:     /user-list
+    defaults: { _controller: App\Controller\UserListController:listAction }
+
+page::user-registration-form:
+    path:     /user-registration
+    defaults: { _controller: App\Controller\UserRegistrationController:registerAction }
+
+page::user-todo-list:
+    path:     /user-todo-list/{userId}
+    defaults: { _controller: App\Controller\UserTodoListController:listAction }
+
+page::user-todo-form:
+    path:     /user-todo-list/{userId}/new-todo
+    defaults: { _controller: App\Controller\UserTodoFormController:formAction }
+
+command::register-user:
+    path: /api/commands/register-user
+    defaults: { _controller: App\Controller\ApiCommandController:postAction, prooph_command_name: 'Prooph\ProophessorDo\Model\User\Command\RegisterUser' }
+
+command::post-todo:
+    path: /api/commands/post-todo
+    defaults: { _controller: App\Controller\ApiCommandController:postAction, prooph_command_name: 'Prooph\ProophessorDo\Model\Todo\Command\PostTodo' }
+
+command::mark-todo-as-done:
+    path: /api/commands/mark-todo-as-done
+    defaults: { _controller: App\Controller\ApiCommandController:postAction, prooph_command_name: 'Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone' }
+
+command::reopen-todo:
+    path: /api/commands/reopen-todo
+    defaults: { _controller: App\Controller\ApiCommandController:postAction, prooph_command_name: 'Prooph\ProophessorDo\Model\Todo\Command\ReopenTodo' }
+
+command::add-deadline-to-todo:
+    path: /api/commands/add-deadline-to-todo
+    defaults: { _controller: App\Controller\ApiCommandController:postAction, prooph_command_name: 'Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo' }
+
+command::add-reminder-to-todo:
+    path: /api/commands/add-reminder-to-todo
+    defaults: { _controller: App\Controller\ApiCommandController:postAction, prooph_command_name: 'Prooph\ProophessorDo\Model\Todo\Command\AddReminderToTodo' }
+
+command::mark-todo-as-expired:
+    path: /api/commands/mark-todo-as-expired
+    defaults: { _controller: App\Controller\ApiCommandController:postAction, prooph_command_name: 'Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsExpired' }
+

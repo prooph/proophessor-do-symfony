@@ -1,69 +1,50 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 5/2/15 - 5:23 PM
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo;
 
-use Rhumsaa\Uuid\Uuid;
+use Prooph\ProophessorDo\Model\ValueObject;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
-/**
- * Class TodoId
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
-final class TodoId
+final class TodoId implements ValueObject
 {
     /**
-     * @var Uuid
+     * @var UuidInterface
      */
     private $uuid;
 
-    /**
-     * @return TodoId
-     */
-    public static function generate()
+    public static function generate(): TodoId
     {
         return new self(Uuid::uuid4());
     }
 
-    /**
-     * @param $todoId
-     * @return TodoId
-     */
-    public static function fromString($todoId)
+    public static function fromString(string $todoId): TodoId
     {
         return new self(Uuid::fromString($todoId));
     }
 
-    /**
-     * @param Uuid $uuid
-     */
-    private function __construct(Uuid $uuid)
+    private function __construct(UuidInterface $uuid)
     {
         $this->uuid = $uuid;
     }
 
-    /**
-     * @return string
-     */
-    public function toString()
+    public function toString(): string
     {
         return $this->uuid->toString();
     }
 
-    /**
-     * @param TodoId $other
-     * @return bool
-     */
-    public function sameValueAs(TodoId $other)
+    public function sameValueAs(ValueObject $other): bool
     {
-        return $this->toString() === $other->toString();
+        return get_class($this) === get_class($other) && $this->uuid->equals($other->uuid);
     }
 }

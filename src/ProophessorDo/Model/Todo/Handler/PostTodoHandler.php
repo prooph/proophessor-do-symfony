@@ -1,13 +1,15 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 5/2/15 - 5:58 PM
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
 use Prooph\ProophessorDo\Model\Todo\Command\PostTodo;
@@ -15,13 +17,7 @@ use Prooph\ProophessorDo\Model\Todo\TodoList;
 use Prooph\ProophessorDo\Model\User\Exception\UserNotFound;
 use Prooph\ProophessorDo\Model\User\UserCollection;
 
-/**
- * Class PostTodoHandler
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
-final class PostTodoHandler
+class PostTodoHandler
 {
     /**
      * @var TodoList
@@ -33,10 +29,6 @@ final class PostTodoHandler
      */
     private $userCollection;
 
-    /**
-     * @param UserCollection $userCollection
-     * @param TodoList $todoList
-     */
     public function __construct(UserCollection $userCollection, TodoList $todoList)
     {
         $this->userCollection = $userCollection;
@@ -44,19 +36,18 @@ final class PostTodoHandler
     }
 
     /**
-     * @param PostTodo $command
      * @throws UserNotFound
      */
-    public function __invoke(PostTodo $command)
+    public function __invoke(PostTodo $command): void
     {
         $user = $this->userCollection->get($command->assigneeId());
 
-        if (!$user) {
+        if (! $user) {
             throw UserNotFound::withUserId($command->assigneeId());
         }
 
         $todo = $user->postTodo($command->text(), $command->todoId());
 
-        $this->todoList->add($todo);
+        $this->todoList->save($todo);
     }
 }

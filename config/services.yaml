@@ -1,0 +1,106 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        # automatically injects dependencies in your services
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
+        # this means you cannot fetch services directly from the container via $container->get()
+        # if you need to do this, you can override this setting on individual services
+        public: false
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        # you can exclude directories or files
+        # but if a service is unused, it's removed anyway
+        exclude: '../src/{Entity,Migrations,Repository,Tests,ProophessorDo,Controller}'
+
+    App\Controller\DefaultController:
+        arguments: ['@templating']
+        tags: ['controller.service_arguments']
+
+    App\Controller\UserListController:
+        arguments: ['@templating', '@proophdo.todo_projection.user_finder']
+        tags: ['controller.service_arguments']
+
+    App\Controller\UserRegistrationController:
+        arguments: ['@templating']
+        tags: ['controller.service_arguments']
+
+    App\Controller\UserTodoListController:
+        arguments: ['@templating', '@proophdo.todo_projection.user_finder', '@proophdo.todo_projection.todo_finder']
+        tags: ['controller.service_arguments']
+
+    App\Controller\UserTodoFormController:
+        class: App\Controller\UserTodoFormController
+        arguments: ['@templating', '@proophdo.todo_projection.user_finder']
+        tags: ['controller.service_arguments']
+
+    App\Controller\ApiCommandController:
+        class: App\Controller\ApiCommandController
+        arguments: ['@prooph_service_bus.todo_command_bus', '@prooph_service_bus.message_factory']
+        tags: ['controller.service_arguments']
+
+    Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler:
+        arguments: ['@user_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.todo_command_bus.route_target', message_detection: true }
+
+    Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler:
+        arguments: ['@user_collection', '@todo_list']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.todo_command_bus.route_target', message_detection: true }
+
+    Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler:
+        arguments: ['@todo_list']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.todo_command_bus.route_target', message_detection: true }
+
+    Prooph\ProophessorDo\Model\Todo\Handler\ReopenTodoHandler:
+        arguments: ['@todo_list']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.todo_command_bus.route_target', message_detection: true }
+
+    Prooph\ProophessorDo\Model\Todo\Handler\AddDeadlineToTodoHandler:
+        arguments: ['@todo_list']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.todo_command_bus.route_target', message_detection: true }
+
+    Prooph\ProophessorDo\Model\Todo\Handler\AddReminderToTodoHandler:
+        arguments: ['@todo_list']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.todo_command_bus.route_target', message_detection: true }
+
+    Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsExpiredHandler:
+        arguments: ['@todo_list']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.todo_command_bus.route_target', message_detection: true }
+
+    Prooph\ProophessorDo\Model\Todo\Handler\RemindTodoAssigneeHandler:
+        arguments: ['@todo_list']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.todo_command_bus.route_target', message_detection: true }
+
+    prooph_event_store_bus_bridge.todo_event_publisher:
+        class: Prooph\EventStoreBusBridge\EventPublisher
+        arguments: ['@prooph_service_bus.todo_event_bus']
+        public: true
+        tags:
+          - { name: 'prooph_event_store.todo_store.plugin' }
+
+    Prooph\ProophessorDo\Model\User\Service\ChecksUniqueUsersEmailAddress:
+        class: Prooph\ProophessorDo\Infrastructure\Service\ChecksUniqueUsersEmailAddressFromReadModel
