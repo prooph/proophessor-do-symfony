@@ -104,3 +104,24 @@ services:
 
     Prooph\ProophessorDo\Model\User\Service\ChecksUniqueUsersEmailAddress:
         class: Prooph\ProophessorDo\Infrastructure\Service\ChecksUniqueUsersEmailAddressFromReadModel
+
+    proophdo.todo_projection.user_finder:
+        class: Prooph\ProophessorDo\Projection\User\UserFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    proophdo.todo_projection.todo_finder:
+        class: Prooph\ProophessorDo\Projection\Todo\TodoFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    proophdo.todo_projection.todo_reminder_finder:
+        class: Prooph\ProophessorDo\Projection\Todo\TodoReminderFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    Prooph\ProophessorDo\Projection\User\UserReadModel:
+        arguments: ['@doctrine.dbal.default_connection']
+
+    Prooph\ProophessorDo\Projection\Todo\TodoReadModel:
+        arguments: ['@doctrine.dbal.default_connection']
+
+    Prooph\ProophessorDo\Projection\Todo\TodoReminderReadModel:
+        arguments: ['@doctrine.dbal.default_connection']
