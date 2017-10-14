@@ -37,7 +37,7 @@ using their favorite web framework. Check out the corresponding [issue](https://
 
 ## Support
 
-- Ask questions on [prooph-users](https://groups.google.com/forum/?hl=de#!forum/prooph) mailing list.
+- Ask questions on Stack Overflow tagged with [#prooph](https://stackoverflow.com/questions/tagged/prooph).
 - File issues at [https://github.com/prooph/proophessor-do/issues](https://github.com/prooph/proophessor-do-symfony/issues).
 - Say hello in the [prooph gitter](https://gitter.im/prooph/improoph) chat.
 
