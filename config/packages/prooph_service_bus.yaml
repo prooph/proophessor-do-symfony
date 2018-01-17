@@ -12,8 +12,8 @@ prooph_service_bus:
         type: 'prooph_service_bus.event_bus_router'
         routes:
           'Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded':
-            - 'Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailSubscriber'
+            - 'Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager'
 
           'Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired':
-            - 'Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber'
+            - 'Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager'
 
