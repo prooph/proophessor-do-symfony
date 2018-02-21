@@ -105,6 +105,12 @@ services:
     Prooph\ProophessorDo\Model\User\Service\ChecksUniqueUsersEmailAddress:
         class: Prooph\ProophessorDo\Infrastructure\Service\ChecksUniqueUsersEmailAddressFromReadModel
 
+    Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager:
+        class: Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager
+
+    Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager:
+        class: Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager
+
     proophdo.todo_projection.user_finder:
         class: Prooph\ProophessorDo\Projection\User\UserFinder
         arguments: ['@doctrine.dbal.default_connection']
