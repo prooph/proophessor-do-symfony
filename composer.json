@@ -45,11 +45,11 @@
         "php": "^7.1",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-cache-bundle": "^1.2",
-        "prooph/event-store-symfony-bundle": "dev-master",
-        "prooph/pdo-event-store": "^1.0",
         "prooph/event-sourcing": "^5.2",
         "prooph/event-store-bus-bridge": "^3.0",
-        "prooph/service-bus-symfony-bundle": "dev-master",
+        "prooph/event-store-symfony-bundle": "^0.4",
+        "prooph/pdo-event-store": "^1.0",
+        "prooph/service-bus-symfony-bundle": "^0.6",
         "symfony/asset": "^4.0",
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
@@ -89,7 +89,8 @@
     "scripts": {
         "auto-scripts": {
             "make cache-warmup": "script",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
+            "cache:clear": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

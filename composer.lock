@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d366137999c054e156a5c214217b4012",
+    "content-hash": "71bae08ac40a28f2cdcd54e7dccf20c2",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1252,16 +1252,16 @@
         },
         {
             "name": "prooph/event-store-symfony-bundle",
-            "version": "dev-master",
+            "version": "v0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prooph/event-store-symfony-bundle.git",
-                "reference": "da6386cafef431e30d9e442336a6972c10fa91e5"
+                "reference": "f3ac5a1e4ff8fcab728784c48f7f8d1576e238c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prooph/event-store-symfony-bundle/zipball/da6386cafef431e30d9e442336a6972c10fa91e5",
-                "reference": "da6386cafef431e30d9e442336a6972c10fa91e5",
+                "url": "https://api.github.com/repos/prooph/event-store-symfony-bundle/zipball/f3ac5a1e4ff8fcab728784c48f7f8d1576e238c1",
+                "reference": "f3ac5a1e4ff8fcab728784c48f7f8d1576e238c1",
                 "shasum": ""
             },
             "require": {
@@ -1336,7 +1336,7 @@
                 "prooph",
                 "symfony"
             ],
-            "time": "2018-02-21T12:49:56+00:00"
+            "time": "2018-02-21T14:04:07+00:00"
         },
         {
             "name": "prooph/pdo-event-store",
@@ -1478,16 +1478,16 @@
         },
         {
             "name": "prooph/service-bus-symfony-bundle",
-            "version": "dev-master",
+            "version": "v0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prooph/service-bus-symfony-bundle.git",
-                "reference": "1b678e59023cd12528c2dd793c69cd1faad33da8"
+                "reference": "de3d1c91e94f10758d8fd6828469953043ddfeee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prooph/service-bus-symfony-bundle/zipball/1b678e59023cd12528c2dd793c69cd1faad33da8",
-                "reference": "1b678e59023cd12528c2dd793c69cd1faad33da8",
+                "url": "https://api.github.com/repos/prooph/service-bus-symfony-bundle/zipball/de3d1c91e94f10758d8fd6828469953043ddfeee",
+                "reference": "de3d1c91e94f10758d8fd6828469953043ddfeee",
                 "shasum": ""
             },
             "require": {
@@ -1565,7 +1565,7 @@
                 "prooph",
                 "symfony"
             ],
-            "time": "2018-02-20T11:29:00+00:00"
+            "time": "2017-12-30T15:08:56+00:00"
         },
         {
             "name": "psr/cache",
@@ -5889,10 +5889,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "prooph/event-store-symfony-bundle": 20,
-        "prooph/service-bus-symfony-bundle": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
