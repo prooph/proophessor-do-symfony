@@ -21,6 +21,20 @@
         <!-- Set "serverVersion" to your server version to avoid edge-case exceptions and extra database calls -->
         <env name="DATABASE_URL" value=""mysql://root@127.0.0.1:3306/symfony?charset=utf8mb4&serverVersion=5.7"" />
         <!-- ###- doctrine/doctrine-bundle ### -->
+
+        <!-- ###+ symfony/framework-bundle ### -->
+        <env name="APP_ENV" value="dev"/>
+        <env name="APP_SECRET" value="527c5c232a749a84b2ea90c991d06cb4"/>
+        <!-- env name="TRUSTED_PROXIES" value="127.0.0.1,127.0.0.2" -->
+        <!-- env name="TRUSTED_HOSTS" value="localhost,example.com" -->
+        <!-- ###- symfony/framework-bundle ### -->
+
+        <!-- ###+ symfony/swiftmailer-bundle ### -->
+        <!-- For Gmail as a transport, use: "gmail://username:password@localhost" -->
+        <!-- For a generic SMTP server, use: "smtp://localhost:25?encryption=&auth_mode=" -->
+        <!-- Delivery is disabled by default via "null://localhost" -->
+        <env name="MAILER_URL" value="null://localhost"/>
+        <!-- ###- symfony/swiftmailer-bundle ### -->
     </php>
 
     <testsuites>
