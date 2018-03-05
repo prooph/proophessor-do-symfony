@@ -84,7 +84,7 @@ class NotifyUserOfExpiredTodoHandler
 
     private function getTodo(string $todoId): ?\stdClass
     {
-        $user = null;
+        $todo = null;
         $this->queryBus
             ->dispatch(new GetTodoById($todoId))
             ->then(
@@ -93,6 +93,6 @@ class NotifyUserOfExpiredTodoHandler
                 }
             );
 
-        return $user;
+        return $todo;
     }
 }
