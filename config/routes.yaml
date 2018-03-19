@@ -1,3 +1,6 @@
+event_store_http_api:
+    resource: "routes/event_store_http_api.yaml"
+
 page::home:
     path: /
     defaults: { _controller: App\Controller\DefaultController::indexAction }

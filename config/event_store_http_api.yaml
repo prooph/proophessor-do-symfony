@@ -1,0 +1,130 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Prooph\EventStore\Http\Middleware\Container\Action\:
+        resource: '../vendor/prooph/event-store-http-middleware/src/Container/Action/*.php'
+
+    Prooph\EventStore\Http\Middleware\Action\DeleteProjection:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\DeleteProjectionFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\DeleteStream:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\DeleteStreamFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\FetchCategoryNames:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\FetchCategoryNamesFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\FetchCategoryNamesRegex:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\FetchCategoryNamesRegexFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\FetchProjectionNames:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\FetchProjectionNamesFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\FetchProjectionNamesRegex:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\FetchProjectionNamesRegexFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\FetchProjectionState:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\FetchProjectionStateFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\FetchProjectionStatus:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\FetchProjectionStatusFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\FetchProjectionStreamPositions:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\FetchProjectionStreamPositionsFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\FetchStreamMetadata:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\FetchStreamMetadataFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\FetchStreamNames:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\FetchStreamNamesFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\FetchStreamNamesRegex:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\FetchStreamNamesRegexFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\HasStream:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\HasStreamFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\LoadStream:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\LoadStreamFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\PostStream:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\PostStreamFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\ResetProjection:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\ResetProjectionFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\StopProjection:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\StopProjectionFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Prooph\EventStore\Http\Middleware\Action\UpdateStreamMetadata:
+        factory: 'Prooph\EventStore\Http\Middleware\Container\Action\UpdateStreamMetadataFactory:__invoke'
+        arguments: ['@service_container']
+        tags: ['controller.service_arguments']
+
+    Zend\Diactoros\Response\EmptyResponse: ~
+    Prooph\EventStore\Http\Middleware\ResponsePrototype:
+        alias: 'Zend\Diactoros\Response\EmptyResponse'
+        public: true
+
+    App\ProophessorDo\Infrastructure\EventStoreHttpApi\SymfonyUrlHelper: ~
+    Prooph\EventStore\Http\Middleware\UrlHelper:
+        alias: 'App\ProophessorDo\Infrastructure\EventStoreHttpApi\SymfonyUrlHelper'
+        public: true
+
+    Prooph\Common\Messaging\NoOpMessageConverter: ~
+    Prooph\Common\Messaging\MessageConverter:
+        alias: 'Prooph\Common\Messaging\NoOpMessageConverter'
+        public: true
+
+    App\ProophessorDo\Infrastructure\EventStoreHttpApi\JsonTransformer: ~
+    Prooph\EventStore\Http\Middleware\Transformer:
+        alias: 'App\ProophessorDo\Infrastructure\EventStoreHttpApi\JsonTransformer'
+        public: true
+
+    Prooph\EventStore\EventStore:
+        alias: 'Prooph\EventStore\Pdo\MySqlEventStore'
+        public: true
+
+    Prooph\EventStore\ReadOnlyEventStore:
+        alias: 'Prooph\EventStore\Pdo\MySqlEventStore'
+        public: true
+
+    Prooph\Common\Messaging\MessageFactory:
+        alias: 'prooph_service_bus.message_factory'
+        public: true

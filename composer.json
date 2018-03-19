@@ -47,27 +47,32 @@
         "doctrine/doctrine-cache-bundle": "^1.2",
         "prooph/event-sourcing": "^5.2",
         "prooph/event-store-bus-bridge": "^3.0",
+        "prooph/event-store-http-middleware": "^0.2.0",
         "prooph/event-store-symfony-bundle": "^0.4",
         "prooph/pdo-event-store": "^1.0",
         "prooph/service-bus-symfony-bundle": "^0.6",
+        "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "^4.0",
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.0",
         "symfony/monolog-bundle": "^3.1",
+        "symfony/psr-http-message-bridge": "^1.0",
         "symfony/swiftmailer-bundle": "^2.3",
         "symfony/templating": "^4.0",
         "symfony/twig-bundle": "^4.0",
         "symfony/yaml": "^4.0",
+        "zendframework/zend-diactoros": "^1.7",
         "zendframework/zend-mail": "^2.7"
     },
     "require-dev": {
-        "symfony/dotenv": "^4.0",
-        "symfony/debug": "^4.0",
-        "phpunit/phpunit": "^6.0",
         "friendsofphp/php-cs-fixer": "^2.10",
+        "malukenho/docheader": "^0.1.4",
+        "phpunit/phpunit": "^6.0",
         "prooph/php-cs-fixer-config": "^0.2",
-        "malukenho/docheader": "^0.1.4"
+        "symfony/debug": "^4.0",
+        "symfony/debug-pack": "^1.0",
+        "symfony/dotenv": "^4.0"
     },
     "config": {
         "preferred-install": {

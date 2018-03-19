@@ -1,0 +1,99 @@
+EventStore::load:
+    path: '/event-store/stream/{streamname}/{start}/{direction}/{count}'
+    defaults:
+        _controller: 'Prooph\EventStore\Http\Middleware\Action\LoadStream::handle'
+        start: 1
+        direction: forward
+        count: 10
+    requirements:
+        start: 'head|[0-9]+'
+        direction: 'forward|backward'
+        count: '[0-9]+'
+    methods: ["GET"]
+
+EventStore::appendTo:
+    path: '/event-store/stream/{streamname}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\PostStream::handle' }
+    methods: ["POST"]
+
+EventStore::fetchStreamMetadata:
+    path: '/event-store/streammetadata/{streamname}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\FetchStreamMetadata::handle' }
+    methods: ["GET"]
+
+EventStore::updateStreamMetadata:
+    path: '/event-store/streammetadata/{streamname}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\UpdateStreamMetadata::handle' }
+    methods: ["POST"]
+
+EventStore::delete:
+    path: '/event-store/delete/{streamname}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\DeleteStream::handle' }
+    methods: ["POST"]
+
+EventStore::hasStream:
+    path: '/event-store/has-stream/{streamname}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\HasStream::handle' }
+    methods: ["GET"]
+
+EventStore::fetchStreamNames:
+    path: '/event-store/streams/{filter}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\FetchStreamNames::handle', filter: ~ }
+    methods: ["GET"]
+
+EventStore::fetchStreamNamesRegex:
+    path: '/event-store/streams-regex/{filter}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\FetchStreamNamesRegex::handle' }
+    methods: ["GET"]
+
+EventStore::fetchCategoryNames:
+    path: '/event-store/categories/{filter}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\FetchCategoryNames::handle', filter: ~ }
+    methods: ["GET"]
+
+EventStore::fetchCategoryNamesRegex:
+    path: '/event-store/categories-regex/{filter}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\FetchCategoryNamesRegex::handle' }
+    methods: ["GET"]
+
+# Projection manager routes
+ProjectionManager::fetchProjectionNames:
+    path: '/event-store/projections/{filter}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\FetchProjectionNames::handle', filter: ~ }
+    methods: ["GET"]
+
+ProjectionManager::fetchProjectionNamesRegex:
+    path: '/event-store/projections-regex/{filter}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\FetchProjectionNamesRegex::handle' }
+    methods: ["GET"]
+
+ProjectionManager::deleteProjection:
+    path: '/event-store/projection/delete/{name}/{deleteEmittedEvents}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\DeleteProjection::handle' }
+    requirements: {deleteEmittedEvents: 'true|false'}
+    methods: ["POST"]
+
+ProjectionManager::resetProjection:
+    path: '/event-store/projection/reset/{name}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\ResetProjection::handle' }
+    methods: ["POST"]
+
+ProjectionManager::stopProjection:
+    path: '/event-store/projection/stop/{name}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\StopProjection::handle' }
+    methods: ["POST"]
+
+ProjectionManager::fetchProjectionStatus:
+    path: '/event-store/projection/status/{name}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\FetchProjectionStatus::handle' }
+    methods: ["GET"]
+
+ProjectionManager::fetchProjectionState:
+    path: '/event-store/projection/state/{name}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\FetchProjectionState::handle' }
+    methods: ["GET"]
+
+ProjectionManager::fetchProjectionStreamPositions:
+    path: '/event-store/projection/stream-positions/{name}'
+    defaults: { _controller: 'Prooph\EventStore\Http\Middleware\Action\FetchProjectionStreamPositions::handle' }
+    methods: ["GET"]
