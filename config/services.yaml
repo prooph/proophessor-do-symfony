@@ -2,6 +2,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
+imports:
+    - { resource: "event_store_http_api.yaml" }
+
 services:
     # default configuration for services in *this* file
     _defaults:
