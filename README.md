@@ -26,6 +26,13 @@ If you have problems with cache files run `sudo chmod 777 var -R`
 ```php
 docker-compose up -d
 ```
+## Management UI (new)
+
+Information about the Management UI can be found in the original proophessor-do repo:
+
+[Management UI Documentation](https://github.com/prooph/proophessor-do/blob/master/docs/mgmt-ui/index.md)
+
+![Model Exploration](https://github.com/prooph/proophessor/blob/master/assets/prooph_do_exploration.gif)
 
 ## Learning by doing!
 
