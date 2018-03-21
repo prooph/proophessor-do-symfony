@@ -41,12 +41,10 @@ services:
         tags: ['controller.service_arguments']
 
     App\Controller\UserTodoFormController:
-        class: App\Controller\UserTodoFormController
         arguments: ['@templating', '@proophdo.todo_projection.user_finder']
         tags: ['controller.service_arguments']
 
     App\Controller\ApiCommandController:
-        class: App\Controller\ApiCommandController
         arguments: ['@prooph_service_bus.todo_command_bus', '@prooph_service_bus.message_factory']
         tags: ['controller.service_arguments']
 
