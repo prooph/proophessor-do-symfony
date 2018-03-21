@@ -109,10 +109,10 @@ services:
         class: Prooph\ProophessorDo\Infrastructure\Service\ChecksUniqueUsersEmailAddressFromReadModel
 
     Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager:
-        class: Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager
+        public: true
 
     Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager:
-        class: Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager
+        public: true
 
     proophdo.todo_projection.user_finder:
         class: Prooph\ProophessorDo\Projection\User\UserFinder
