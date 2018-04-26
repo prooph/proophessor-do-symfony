@@ -124,11 +124,14 @@ services:
         class: Prooph\ProophessorDo\Projection\Todo\TodoReminderFinder
         arguments: ['@doctrine.dbal.default_connection']
 
+    Prooph\ProophessorDo\Projection\User\UserProjection: ~
     Prooph\ProophessorDo\Projection\User\UserReadModel:
         arguments: ['@doctrine.dbal.default_connection']
 
+    Prooph\ProophessorDo\Projection\Todo\TodoProjection: ~
     Prooph\ProophessorDo\Projection\Todo\TodoReadModel:
         arguments: ['@doctrine.dbal.default_connection']
 
+    Prooph\ProophessorDo\Projection\Todo\TodoReminderProjection: ~
     Prooph\ProophessorDo\Projection\Todo\TodoReminderReadModel:
         arguments: ['@doctrine.dbal.default_connection']
