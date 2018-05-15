@@ -18,7 +18,7 @@ time has passed.
 
 Please refer to the [installation instructions](https://github.com/prooph/proophessor-do-symfony/blob/master/docs/installation/index.md).
 
-If you have problems with cache files run `sudo chmod 777 var -R`
+If you have problems with cache files run `sudo chmod -R 777 var`
 
 
 ## Running the app with Docker
