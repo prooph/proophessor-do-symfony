@@ -68,7 +68,6 @@ EOT;
         $tableName = Table::TODO_REMINDER;
 
         $sql = "TRUNCATE TABLE '$tableName';";
-        EOT;
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
