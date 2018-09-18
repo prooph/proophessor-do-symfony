@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "9633d1efd5d513c18ebff6a5bf119330",
@@ -2057,17 +2057,6 @@
         {
             "name": "roave/security-advisories",
             "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "1b2f1f59ff8fc933e4d61ee45214ff3228e20c75"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/1b2f1f59ff8fc933e4d61ee45214ff3228e20c75",
-                "reference": "1b2f1f59ff8fc933e4d61ee45214ff3228e20c75",
-                "shasum": ""
-            },
             "conflict": {
                 "3f/pygmentize": "<1.2",
                 "adodb/adodb-php": "<5.20.6",
@@ -2959,16 +2948,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.0.71",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "51d7ddce85ca8b73a1fc16771f607b7d56692dbd"
+                "reference": "9fb60f232af0764d58002e7872acb43a74506d25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/51d7ddce85ca8b73a1fc16771f607b7d56692dbd",
-                "reference": "51d7ddce85ca8b73a1fc16771f607b7d56692dbd",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/9fb60f232af0764d58002e7872acb43a74506d25",
+                "reference": "9fb60f232af0764d58002e7872acb43a74506d25",
                 "shasum": ""
             },
             "require": {
@@ -2982,7 +2971,7 @@
             "type": "composer-plugin",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 },
                 "class": "Symfony\\Flex\\Flex"
             },
@@ -3001,7 +2990,8 @@
                     "email": "fabien.potencier@gmail.com"
                 }
             ],
-            "time": "2018-03-10T21:15:53+00:00"
+            "description": "Composer plugin for Symfony",
+            "time": "2018-09-03T08:17:12+00:00"
         },
         {
             "name": "symfony/framework-bundle",
