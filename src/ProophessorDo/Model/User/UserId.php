@@ -45,6 +45,6 @@ final class UserId implements ValueObject
 
     public function sameValueAs(ValueObject $other): bool
     {
-        return get_class($this) === get_class($other) && $this->uuid->equals($other->uuid);
+        return \get_class($this) === \get_class($other) && $this->uuid->equals($other->uuid);
     }
 }

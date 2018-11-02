@@ -19,7 +19,7 @@ final class TodoAlreadyDone extends \RuntimeException
 {
     public static function triedStatus(TodoStatus $status, Todo $todo): TodoAlreadyDone
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Tried to change status of Todo %s to %s. But Todo is already marked as done!',
             $todo->todoId()->toString(),
             $status->toString()

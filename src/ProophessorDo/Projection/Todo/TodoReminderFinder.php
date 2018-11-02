@@ -32,7 +32,7 @@ class TodoReminderFinder
     public function findOpen(): array
     {
         $stmt = $this->connection->prepare(
-            sprintf(
+            \sprintf(
                 "SELECT * FROM %s where reminder < NOW() AND status = '%s'",
                 Table::TODO_REMINDER,
                 TodoReminderStatus::OPEN

@@ -45,6 +45,6 @@ final class EmailAddress implements ValueObject
 
     public function sameValueAs(ValueObject $other): bool
     {
-        return get_class($this) === get_class($other) && $this->toString() === $other->toString();
+        return \get_class($this) === \get_class($other) && $this->toString() === $other->toString();
     }
 }

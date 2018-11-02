@@ -24,7 +24,6 @@ use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
 
 final class TodoProjection implements ReadModelProjection
 {
-
     public function project(ReadModelProjector $projector): ReadModelProjector
     {
         $projector->fromStream('event_stream')

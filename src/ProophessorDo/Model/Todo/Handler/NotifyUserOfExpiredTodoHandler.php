@@ -51,7 +51,7 @@ class NotifyUserOfExpiredTodoHandler
             return;
         }
 
-        $message = sprintf(
+        $message = \sprintf(
             'Hi %s! Just a heads up: your todo `%s` has expired on %s.',
             $user->name,
             $todo->text,

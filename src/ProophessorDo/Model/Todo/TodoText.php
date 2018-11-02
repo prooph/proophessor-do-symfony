@@ -45,6 +45,6 @@ final class TodoText implements ValueObject
 
     public function sameValueAs(ValueObject $object): bool
     {
-        return get_class($this) === get_class($object) && $this->text === $object->text;
+        return \get_class($this) === \get_class($object) && $this->text === $object->text;
     }
 }

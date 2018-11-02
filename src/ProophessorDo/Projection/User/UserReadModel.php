@@ -93,7 +93,7 @@ EOT;
 
     protected function postTodo(string $assigneeId): void
     {
-        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos + 1 WHERE id = :assignee_id', Table::USER));
+        $stmt = $this->connection->prepare(\sprintf('UPDATE %s SET open_todos = open_todos + 1 WHERE id = :assignee_id', Table::USER));
 
         $stmt->bindValue('assignee_id', $assigneeId);
 
@@ -102,7 +102,7 @@ EOT;
 
     protected function markTodoAsDone(string $assigneeId): void
     {
-        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos - 1, done_todos = done_todos + 1 WHERE id = :assignee_id', Table::USER));
+        $stmt = $this->connection->prepare(\sprintf('UPDATE %s SET open_todos = open_todos - 1, done_todos = done_todos + 1 WHERE id = :assignee_id', Table::USER));
 
         $stmt->bindValue('assignee_id', $assigneeId);
 
@@ -111,7 +111,7 @@ EOT;
 
     protected function reopenTodo(string $assigneeId): void
     {
-        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos + 1, done_todos = done_todos - 1 WHERE id = :assignee_id', Table::USER));
+        $stmt = $this->connection->prepare(\sprintf('UPDATE %s SET open_todos = open_todos + 1, done_todos = done_todos - 1 WHERE id = :assignee_id', Table::USER));
 
         $stmt->bindValue('assignee_id', $assigneeId);
 
@@ -120,7 +120,7 @@ EOT;
 
     protected function markTodoAsExpired(string $assigneeId): void
     {
-        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos - 1, expired_todos = expired_todos + 1 WHERE id = :assignee_id', Table::USER));
+        $stmt = $this->connection->prepare(\sprintf('UPDATE %s SET open_todos = open_todos - 1, expired_todos = expired_todos + 1 WHERE id = :assignee_id', Table::USER));
 
         $stmt->bindValue('assignee_id', $assigneeId);
 
@@ -129,7 +129,7 @@ EOT;
 
     protected function unmarkedTodoAsExpired(string $assigneeId): void
     {
-        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos + 1, expired_todos = expired_todos - 1 WHERE id = :assignee_id', Table::USER));
+        $stmt = $this->connection->prepare(\sprintf('UPDATE %s SET open_todos = open_todos + 1, expired_todos = expired_todos - 1 WHERE id = :assignee_id', Table::USER));
 
         $stmt->bindValue('assignee_id', $assigneeId);
 

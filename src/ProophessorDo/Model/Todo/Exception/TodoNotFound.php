@@ -18,6 +18,6 @@ final class TodoNotFound extends \InvalidArgumentException
 {
     public static function withTodoId(TodoId $todoId): TodoNotFound
     {
-        return new self(sprintf('Todo with id %s cannot be found.', $todoId->toString()));
+        return new self(\sprintf('Todo with id %s cannot be found.', $todoId->toString()));
     }
 }
