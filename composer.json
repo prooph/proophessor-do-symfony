@@ -67,9 +67,8 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.10",
-        "malukenho/docheader": "^0.1.4",
         "phpunit/phpunit": "^6.0",
-        "prooph/php-cs-fixer-config": "^0.2",
+        "prooph/php-cs-fixer-config": "^0.3",
         "symfony/debug": "^4.0",
         "symfony/debug-pack": "^1.0",
         "symfony/dotenv": "^4.0"

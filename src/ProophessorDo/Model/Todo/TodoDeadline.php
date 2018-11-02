@@ -59,7 +59,7 @@ final class TodoDeadline implements ValueObject
 
     public function sameValueAs(ValueObject $object): bool
     {
-        return get_class($this) === get_class($object)
+        return \get_class($this) === \get_class($object)
             && $this->deadline->format('U.u') === $object->deadline->format('U.u')
             && $this->createdOn->format('U.u') === $object->createdOn->format('U.u');
     }

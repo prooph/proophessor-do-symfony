@@ -45,6 +45,6 @@ final class UserName implements ValueObject
 
     public function sameValueAs(ValueObject $object): bool
     {
-        return get_class($this) === get_class($object) && $this->name === $object->name;
+        return \get_class($this) === \get_class($object) && $this->name === $object->name;
     }
 }

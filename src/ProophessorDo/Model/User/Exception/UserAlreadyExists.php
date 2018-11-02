@@ -18,6 +18,6 @@ final class UserAlreadyExists extends \InvalidArgumentException
 {
     public static function withUserId(UserId $userId): UserAlreadyExists
     {
-        return new self(sprintf('User with id %s already exists.', $userId->toString()));
+        return new self(\sprintf('User with id %s already exists.', $userId->toString()));
     }
 }

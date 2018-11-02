@@ -7,7 +7,7 @@
  * @license   https://github.com/prooph/proophessor-do-symfony/blob/master/LICENSE.md New BSD License
  */
 
-declare (strict_types = 1);
+declare(strict_types = 1);
 
 namespace App\Twig;
 
@@ -25,7 +25,7 @@ class RiotTag extends \Twig_Extension
                 [$this, 'render'],
                 [
                     'is_safe' => ['html'],
-                    'needs_environment' => true // Tell twig we need the environment
+                    'needs_environment' => true, // Tell twig we need the environment
                 ]
             ),
         ];
@@ -56,7 +56,7 @@ class RiotTag extends \Twig_Extension
             $template = $this->removeJsFromTemplate($template, $tagName);
         }
 
-        return 'riot.tag("' . $tagName . '", "' . str_replace($this->search, $this->replace,
+        return 'riot.tag("' . $tagName . '", "' . \str_replace($this->search, $this->replace,
             $template) . '", ' . $jsFunction . ');';
     }
 
@@ -64,35 +64,35 @@ class RiotTag extends \Twig_Extension
     {
         $this->assertTemplate($template);
 
-        $startPos = strpos($template, 'riot-');
-        $endPos = strpos($template, '.html.twig');
+        $startPos = \strpos($template, 'riot-');
+        $endPos = \strpos($template, '.html.twig');
 
-        return substr($template, $startPos + 5, $endPos - $startPos - 5);
+        return \substr($template, $startPos + 5, $endPos - $startPos - 5);
     }
 
     private function assertTagName($tagName)
     {
-        if (!is_string($tagName)) {
-            throw new \InvalidArgumentException('Riot tag name should be a string. got ' . gettype($tagName));
+        if (! \is_string($tagName)) {
+            throw new \InvalidArgumentException('Riot tag name should be a string. got ' . \gettype($tagName));
         }
     }
 
     private function assertTemplate($template)
     {
-        if (!is_string($template)) {
-            throw new \InvalidArgumentException('Riot template should be a string. got ' . gettype($template));
+        if (! \is_string($template)) {
+            throw new \InvalidArgumentException('Riot template should be a string. got ' . \gettype($template));
         }
     }
 
     private function extractJsFunction($template, $tagName)
     {
-        preg_match(
+        \preg_match(
             '/<script .*type="text\/javascript"[^>]*>[\s]*(?<func>function.+\});?[\s]*<\/script>/is',
             $template,
             $matches
         );
 
-        if (!$matches['func']) {
+        if (! $matches['func']) {
             throw new \RuntimeException('Riot tag javascript function could not be found for tag name: ' . $tagName);
         }
 
@@ -101,10 +101,10 @@ class RiotTag extends \Twig_Extension
 
     private function removeJsFromTemplate($template, $tagName)
     {
-        $template = preg_replace('/<script .*type="text\/javascript"[^>]*>.*<\/script>/is', '', $template);
+        $template = \preg_replace('/<script .*type="text\/javascript"[^>]*>.*<\/script>/is', '', $template);
 
-        if (!$template) {
-            throw new \RuntimeException('Riot tag template compilation failed for tag: ' . $tagName . ' with error code: ' . preg_last_error());
+        if (! $template) {
+            throw new \RuntimeException('Riot tag template compilation failed for tag: ' . $tagName . ' with error code: ' . \preg_last_error());
         }
 
         return $template;

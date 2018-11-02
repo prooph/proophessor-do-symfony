@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Projection\User;
 
-
 use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\EventStore\Projection\ReadModelProjector;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;

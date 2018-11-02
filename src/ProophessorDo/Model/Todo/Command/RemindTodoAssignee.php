@@ -50,7 +50,7 @@ final class RemindTodoAssignee extends Command implements PayloadConstructable
         Assertion::keyExists($payload, 'reminder');
         Assertion::string($payload['reminder']); // @todo: check for date format
         Assertion::keyExists($payload, 'reminder_status');
-        Assertion::true(defined(TodoReminderStatus::class . '::' . $payload['reminder_status']));
+        Assertion::true(\defined(TodoReminderStatus::class . '::' . $payload['reminder_status']));
 
         $this->payload = $payload;
     }

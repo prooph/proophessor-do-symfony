@@ -7,7 +7,7 @@
  * @license   https://github.com/prooph/proophessor-do-symfony/blob/master/LICENSE.md New BSD License
  */
 
-declare (strict_types = 1);
+declare(strict_types = 1);
 
 namespace App\Controller;
 

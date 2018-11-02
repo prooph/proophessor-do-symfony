@@ -18,7 +18,7 @@ final class CannotReopenTodo extends \RuntimeException
 {
     public static function notMarkedDone(Todo $todo): CannotReopenTodo
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Tried to reopen status of Todo %s. But Todo is not marked as done!',
             $todo->todoId()->toString()
         ));

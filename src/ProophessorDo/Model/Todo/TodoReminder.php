@@ -74,7 +74,7 @@ final class TodoReminder implements ValueObject
 
     public function sameValueAs(ValueObject $object): bool
     {
-        return get_class($this) === get_class($object)
+        return \get_class($this) === \get_class($object)
             && $this->reminder->format('U.u') === $object->reminder->format('U.u')
             && $this->status->is($object->status);
     }

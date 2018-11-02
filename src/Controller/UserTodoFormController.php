@@ -7,7 +7,7 @@
  * @license   https://github.com/prooph/proophessor-do-symfony/blob/master/LICENSE.md New BSD License
  */
 
-declare (strict_types = 1);
+declare(strict_types = 1);
 
 namespace App\Controller;
 
@@ -15,7 +15,6 @@ use Prooph\ProophessorDo\Projection\User\UserFinder;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Class UserTodoForm

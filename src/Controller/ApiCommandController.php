@@ -52,10 +52,10 @@ final class ApiCommandController
         if (null === $commandName) {
             return JsonResponse::create(
                 [
-                    'message' => sprintf(
+                    'message' => \sprintf(
                         'Command name attribute ("%s") was not found in request.',
                         self::NAME_ATTRIBUTE
-                    )
+                    ),
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
@@ -66,7 +66,7 @@ final class ApiCommandController
         } catch (\Throwable $error) {
             return JsonResponse::create(
                 [
-                    'message' => $error->getMessage()
+                    'message' => $error->getMessage(),
                 ],
                 $error->getCode()
             );
@@ -78,12 +78,14 @@ final class ApiCommandController
             $this->commandBus->dispatch($command);
         } catch (CommandDispatchException $ex) {
             $this->logger->error($ex->getPrevious());
+
             return JsonResponse::create(
                 ['message' => $ex->getPrevious()->getMessage()],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         } catch (\Throwable $error) {
             $this->logger->error($error);
+
             return JsonResponse::create(['message' => $error->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
@@ -92,9 +94,9 @@ final class ApiCommandController
 
     private function getPayloadFromRequest(Request $request): array
     {
-        $payload = json_decode($request->getContent(), true);
+        $payload = \json_decode($request->getContent(), true);
 
-        switch (json_last_error()) {
+        switch (\json_last_error()) {
             case JSON_ERROR_DEPTH:
                 throw new \Exception('Invalid JSON, maximum stack depth exceeded.', 400);
             case JSON_ERROR_UTF8:
