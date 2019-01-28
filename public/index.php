@@ -25,7 +25,7 @@ if ($_SERVER['APP_DEBUG'] ?? false) {
 
 // Request::setTrustedProxies(['0.0.0.0/0'], Request::HEADER_FORWARDED);
 
-$kernel = new Kernel($_SERVER['APP_ENV'] ?? 'dev', $_SERVER['APP_DEBUG'] ?? false);
+$kernel = new Kernel($_SERVER['APP_ENV'] ?? 'dev', (bool)($_SERVER['APP_DEBUG'] ?? false));
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
