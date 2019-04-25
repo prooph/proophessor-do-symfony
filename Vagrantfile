@@ -40,4 +40,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision :docker_compose, yml: "/vagrant/docker-compose.yml", rebuild: false, run: "always"
     config.vm.provision "shell", inline: "cd /vagrant && docker run --rm --volume $(pwd):/app prooph/composer:7.1 install -o --prefer-dist"
     config.vm.provision "shell", inline: "cd /vagrant && docker-compose run --rm php php bin/console event-store:event-stream:create"
+    config.vm.provision "shell", inline: "cd /vagrant && docker-compose run --rm php php bin/console doctrine:migrations:migrate"
 end

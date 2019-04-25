@@ -54,6 +54,10 @@ $ docker-compose up -d
 ```bash
 $ docker-compose run --rm php php bin/console event-store:event-stream:create
 ```
+#### 3.5 Execute migrations:
+```bash
+$ docker-compose run --rm php php bin/console doctrine:migrations:migrate
+```
 
 ### Step 4 - That's it!
 Now open [http://localhost:8080](http://localhost:8080/) and have fun.
