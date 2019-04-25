@@ -11,7 +11,11 @@ declare(strict_types = 1);
 
 namespace App\Twig;
 
-class RiotTag extends \Twig_Extension
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+
+class RiotTag extends AbstractExtension
 {
     private $search = ['"', PHP_EOL];
 
@@ -20,7 +24,7 @@ class RiotTag extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction(
+            new TwigFunction(
                 'riotTag',
                 [$this, 'render'],
                 [
@@ -39,7 +43,7 @@ class RiotTag extends \Twig_Extension
         return 'prooph:riot-tag';
     }
 
-    public function render(\Twig_Environment $twig, $tagName, $template = null, $jsFunction = null)
+    public function render(Environment $twig, $tagName, $template = null, $jsFunction = null)
     {
         if ($template === null) {
             $template = $tagName;

@@ -14,12 +14,24 @@ namespace App\Command;
 use Prooph\EventStore\EventStore;
 use Prooph\EventStore\Stream;
 use Prooph\EventStore\StreamName;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateEventStreamCommand extends ContainerAwareCommand
+class CreateEventStreamCommand extends Command
 {
+    /**
+     * @var EventStore
+     */
+    private $eventStore;
+
+    public function __construct(EventStore $eventStore)
+    {
+        $this->eventStore = $eventStore;
+
+        parent::__construct();
+    }
+
     protected function configure()
     {
         $this->setName('event-store:event-stream:create')
@@ -29,10 +41,7 @@ class CreateEventStreamCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var EventStore $eventStore */
-        $eventStore = $this->getContainer()->get('prooph_event_store.todo_store');
-
-        $eventStore->create(new Stream(new StreamName('event_stream'), new \ArrayIterator([])));
+        $this->eventStore->create(new Stream(new StreamName('event_stream'), new \ArrayIterator([])));
         $output->writeln('<info>Event stream was created successfully.</info>');
     }
 }
