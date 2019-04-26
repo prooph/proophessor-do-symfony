@@ -31,11 +31,16 @@ final class Version20190425071843 extends AbstractMigration implements Container
             : $this->getPlatformToPathMapping()[$this->connection->getDatabasePlatform()->getName()];
 
         foreach ($this->getTableFiles() as $file) {
-            $this->addSql(
-                file_get_contents(
-                    $this->getMigrationPath($platform, $file)
-                )
-            );
+            $migrations = explode(';', file_get_contents(
+                $this->getMigrationPath($platform, $file)
+            ));
+
+            array_map(function(string $migration) {
+                $migration = trim($migration);
+                if ($migration) {
+                    $this->addSql($migration);
+                }
+            }, $migrations);
         }
     }
 
