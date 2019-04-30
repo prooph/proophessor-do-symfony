@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-final class Version20190425071843 extends AbstractMigration implements ContainerAwareInterface
+final class SetupEventStoreTables extends AbstractMigration implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
