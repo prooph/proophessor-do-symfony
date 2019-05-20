@@ -36,7 +36,7 @@ final class ApiCommandController
      */
     private $logger;
 
-    const NAME_ATTRIBUTE = 'prooph_command_name';
+    private const NAME_ATTRIBUTE = 'prooph_command_name';
 
     public function __construct(CommandBus $commandBus, MessageFactory $messageFactory, LoggerInterface $logger)
     {
