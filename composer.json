@@ -54,6 +54,7 @@
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "^4.0",
         "symfony/console": "^4.0",
+        "symfony/dotenv": "^4.0",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.0",
         "symfony/monolog-bundle": "^3.1",
@@ -70,8 +71,7 @@
         "phpunit/phpunit": "^6.0",
         "prooph/php-cs-fixer-config": "^0.3",
         "symfony/debug": "^4.0",
-        "symfony/debug-pack": "^1.0",
-        "symfony/dotenv": "^4.0"
+        "symfony/debug-pack": "^1.0"
     },
     "config": {
         "preferred-install": {
