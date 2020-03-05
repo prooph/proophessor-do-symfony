@@ -13,6 +13,18 @@ services:
     volumes:
       - ./vendor/prooph/pdo-event-store/scripts/mysql:/docker-entrypoint-initdb.d
 
+#  postgres:
+#    image: postgres
+#    ports:
+#      - 5432:5432
+#    restart: always
+#    networks:
+#      - default
+#    environment:
+#      - POSTGRES_DB=todo
+#      - POSTGRES_USER=dev
+#      - POSTGRES_PASSWORD=dev
+
   nginx:
     image: prooph/nginx:www
     ports:

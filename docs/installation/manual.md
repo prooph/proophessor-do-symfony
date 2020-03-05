@@ -30,9 +30,7 @@ tbd
 
 #### 3.3 Event Store
 
- - Execute the scripts located at:
-   - `vendor/prooph/pdo-event-store/scripts/mysql/01_event_streams_table.sql`
-   - `vendor/prooph/pdo-event-store/scripts/mysql/02_projections_table.sql`
+ - Execute migrations by running `php bin/console doctrine:migrations:migrate`
  - Create empty stream: Run `php bin/console event-store:event-stream:create`
 
 ### Step 4 - Start the backend scripts
